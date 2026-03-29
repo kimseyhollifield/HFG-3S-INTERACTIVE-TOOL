@@ -1,0 +1,2297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>The 3S Process — Hollifield Financial Group</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{--navy:#0D2340;--blue:#1B4F8A;--sky:#4A90C4;--sv:#B8C4D0;--sl:#D8E2EC;--white:#FFFFFF;--bg:#E8EDF3;--green:#2E7D32;--amber:#E65100;--red:#B71C1C}
+  body{background:var(--bg);font-family:'Montserrat',sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px}
+  .breadcrumb{display:flex;align-items:center;gap:8px;margin-bottom:24px;height:28px;opacity:0;transition:opacity .3s}
+  .breadcrumb.visible{opacity:1}
+  .bc-home{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--blue);cursor:pointer;text-decoration:underline}
+  .bc-sep{font-size:9px;color:var(--sv)}
+  .bc-current{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--navy)}
+  .card{background:var(--navy);width:100%;max-width:600px;border-radius:4px;overflow:hidden;box-shadow:0 20px 60px rgba(13,35,64,0.25);position:relative}
+  .card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--sv),var(--sl),var(--sv),transparent)}
+  .hdr{padding:28px 44px 22px;text-align:center;border-bottom:1px solid rgba(184,196,208,0.12)}
+  .hdr-logo{display:flex;justify-content:center;margin-bottom:4px}
+  .hdr-firm{display:none}
+  .hdr-title{font-size:26px;font-weight:800;letter-spacing:5px;color:var(--white)}
+  .hdr-title span{color:var(--sl)}
+  .hdr-sub{margin-top:7px;font-size:9px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:rgba(184,196,208,0.45)}
+  .screen{display:none;padding:40px 44px 32px}
+  .screen.active{display:block;animation:fadeIn .3s ease}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+  /* VENN */
+  .venn-outer{display:flex;justify-content:center;margin-bottom:32px}
+  .venn{position:relative;width:300px;height:272px}
+  .vc{position:absolute;width:174px;height:174px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:transform .25s ease,filter .25s;cursor:pointer;user-select:none}
+  .vc:hover{filter:brightness(1.12)}
+  .vc-top{top:0;left:50%;transform:translateX(-50%);z-index:3;justify-content:flex-start;padding-top:28px}
+  .vc-left{bottom:0;left:0;z-index:2;justify-content:flex-end;padding-bottom:26px}
+  .vc-right{bottom:0;right:0;z-index:1;justify-content:flex-end;padding-bottom:26px}
+  .vc-top:hover{transform:translateX(-50%) scale(1.05)}
+  .vc-left:hover,.vc-right:hover{transform:scale(1.05)}
+  .m-top{background:rgba(27,79,138,0.78);border:1.5px solid rgba(184,196,208,0.3)}
+  .m-left{background:rgba(13,35,64,0.90);border:1.5px solid rgba(184,196,208,0.2)}
+  .m-right{background:rgba(74,144,196,0.62);border:1.5px solid rgba(184,196,208,0.28)}
+  .vc-s{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:700;color:var(--sl);line-height:1;margin-bottom:4px}
+  .vc-label{font-size:7.5px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;text-align:center;color:rgba(255,255,255,0.88);padding:0 24px;line-height:1.6}
+  .vc-tap{font-size:6px;font-weight:500;letter-spacing:0.8px;color:rgba(255,255,255,0.35);margin-top:3px;text-transform:uppercase}
+  .vc-score-badge{position:absolute;top:10px;right:10px;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;border:2px solid rgba(255,255,255,0.6);opacity:0;transition:opacity .3s;pointer-events:none}
+  .vc-score-badge.visible{opacity:1}
+  .badge-high{background:#2E7D32;color:white}
+  .badge-low{background:#B71C1C;color:white}
+  .venn-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-36%);width:78px;height:78px;border-radius:50%;background:rgba(13,35,64,0.75);border:1px solid rgba(184,196,208,0.22);display:flex;align-items:center;justify-content:center;z-index:9;pointer-events:none;backdrop-filter:blur(3px)}
+  .venn-center-text{font-family:'Cormorant Garamond',serif;font-size:9.5px;font-style:italic;font-weight:600;color:rgba(255,255,255,0.6);text-align:center;line-height:1.5;padding:0 8px}
+  /* INNER CIRCLES */
+  .i-top{background:rgba(27,79,138,0.82);border:1.5px solid rgba(184,196,208,0.28)}
+  .i-left{background:rgba(20,50,95,0.88);border:1.5px solid rgba(184,196,208,0.18)}
+  .i-right{background:rgba(74,144,196,0.65);border:1.5px solid rgba(184,196,208,0.25)}
+  .g-top{background:rgba(13,35,64,0.92);border:1.5px solid rgba(184,196,208,0.2)}
+  .g-left{background:rgba(27,79,138,0.80);border:1.5px solid rgba(184,196,208,0.28)}
+  .g-right{background:rgba(74,144,196,0.60);border:1.5px solid rgba(184,196,208,0.25)}
+  .t-top{background:rgba(74,144,196,0.60);border:1.5px solid rgba(184,196,208,0.25)}
+  .t-left{background:rgba(27,79,138,0.80);border:1.5px solid rgba(184,196,208,0.28)}
+  .t-right{background:rgba(13,35,64,0.92);border:1.5px solid rgba(184,196,208,0.2)}
+  .vc-inner{cursor:default}
+  .vc-inner:hover{filter:brightness(1.06);transform:none!important}
+  .vc-inner.vc-top:hover{transform:translateX(-50%)!important}
+  /* PILLAR STRIP */
+  .pillar-strip{background:rgba(255,255,255,0.04);border:1px solid rgba(184,196,208,0.1);border-radius:3px;padding:16px 18px;display:flex;gap:0}
+  .ps-item{flex:1;text-align:center;padding:0 12px}
+  .ps-item:not(:last-child){border-right:1px solid rgba(184,196,208,0.1)}
+  .ps-name{font-size:7.5px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--sl);margin-bottom:6px}
+  .ps-detail{font-size:8.5px;color:rgba(255,255,255,0.42);line-height:1.6}
+  /* NAV */
+  .back-btn{display:none;margin:0 auto 20px;padding:8px 22px;background:transparent;border:1px solid rgba(184,196,208,0.3);color:var(--sv);font-family:'Montserrat',sans-serif;font-size:9px;font-weight:600;letter-spacing:2px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .2s}
+  .back-btn:hover{background:rgba(184,196,208,0.1);color:var(--sl)}
+  .back-btn.visible{display:block}
+  .footer{padding:14px 44px;text-align:center;border-top:1px solid rgba(184,196,208,0.1);font-size:8px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:rgba(184,196,208,0.35)}
+  .footer span{color:var(--sl)}
+  /* SCORE NAV BUTTON */
+  .score-nav-btn{display:block;width:100%;padding:10px;background:rgba(255,255,255,0.05);border:1px solid rgba(184,196,208,0.2);color:var(--sv);font-family:'Montserrat',sans-serif;font-size:8.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;border-radius:3px;transition:all .2s;margin-top:12px;text-align:center}
+  .score-nav-btn:hover{background:rgba(184,196,208,0.1);color:var(--sl)}
+  .score-nav-btn.primary{background:var(--blue);border-color:var(--blue);color:var(--white)}
+  .score-nav-btn.primary:hover{background:#2260a0}
+  /* SCORING SCREEN */
+  .score-screen{padding:28px 36px 24px}
+  .score-intro{text-align:center;margin-bottom:24px}
+  .score-intro-q{font-size:12px;font-weight:700;color:var(--white);line-height:1.55;margin-bottom:8px}
+  .score-intro-note{font-size:8.5px;color:rgba(184,196,208,0.55);letter-spacing:1px}
+  .score-intro-note strong{color:var(--sl)}
+  .score-pillar{background:rgba(255,255,255,0.04);border:1px solid rgba(184,196,208,0.1);border-radius:3px;padding:16px 18px 12px;margin-bottom:10px;transition:border-color .2s}
+  .score-pillar.scored{border-color:rgba(184,196,208,0.35)}
+  .score-pillar-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+  .score-pillar-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+  .dot-income{background:var(--blue)}
+  .dot-growth{background:var(--sv)}
+  .dot-tax{background:var(--sky)}
+  .score-pillar-name{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--sl);flex:1}
+  .score-result{font-size:8.5px;font-weight:700;letter-spacing:1px;opacity:0;transition:opacity .3s}
+  .score-result.visible{opacity:1}
+  .result-high{color:#81C784}
+  .result-low{color:#EF9A9A}
+  .score-numbers{display:flex;gap:4px;justify-content:center;flex-wrap:nowrap}
+  .score-btn{width:36px;height:36px;border-radius:4px;border:1px solid rgba(184,196,208,0.2);background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.7);font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .score-btn:hover:not(.disabled):not(.selected-high):not(.selected-low){background:rgba(184,196,208,0.15);color:var(--white);transform:translateY(-2px)}
+  .score-btn.disabled{opacity:0.18;cursor:not-allowed;font-size:10px;text-decoration:line-through}
+  .score-btn.selected-high{background:#2E7D32;border-color:#2E7D32;color:white;transform:translateY(-2px);box-shadow:0 4px 12px rgba(46,125,50,0.4)}
+  .score-btn.selected-low{background:#B71C1C;border-color:#B71C1C;color:white;transform:translateY(-2px);box-shadow:0 4px 12px rgba(183,28,28,0.4)}
+  .score-legend{display:flex;justify-content:space-between;margin-top:6px;padding:0 2px}
+  .legend-low{font-size:6.5px;color:#EF9A9A;letter-spacing:0.5px}
+  .legend-skip{font-size:6.5px;color:rgba(184,196,208,0.3);letter-spacing:0.5px;text-align:center;flex:1}
+  .legend-high{font-size:6.5px;color:#81C784;letter-spacing:0.5px;text-align:right}
+  /* AGENDA */
+  .agenda-wrap{margin-top:16px;background:rgba(255,255,255,0.04);border:1px solid rgba(184,196,208,0.15);border-radius:3px;overflow:hidden;opacity:0;max-height:0;transition:opacity .4s,max-height .5s}
+  .agenda-wrap.visible{opacity:1;max-height:600px}
+  .agenda-header{background:var(--blue);padding:10px 16px;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--sl)}
+  .agenda-items{padding:10px 16px}
+  .agenda-item{display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid rgba(184,196,208,0.08)}
+  .agenda-item:last-child{border-bottom:none}
+  .agenda-rank{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0}
+  .rank-1{background:#B71C1C;color:white}
+  .rank-2{background:#E65100;color:white}
+  .rank-3{background:#2E7D32;color:white}
+  .agenda-pillar-name{font-size:9px;font-weight:700;color:var(--white);flex:1}
+  .agenda-score-display{font-size:20px;font-weight:800}
+  .agenda-action{font-size:7px;color:rgba(184,196,208,0.5);display:block}
+  .agenda-start{font-size:7px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#B71C1C;background:rgba(183,28,28,0.12);border:1px solid rgba(183,28,28,0.3);border-radius:2px;padding:2px 6px;white-space:nowrap}
+</style>
+</head>
+<body>
+
+<div class="breadcrumb" id="bc">
+  <span class="bc-home" onclick="goHome()">3S Process</span>
+  <span class="bc-sep">&#8250;</span>
+  <span class="bc-current" id="bc-label"></span>
+</div>
+
+<div class="card">
+  <div class="hdr" id="hdr">
+    <div class="hdr-logo"><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/2wBDAQICAgICAgUDAwUKBwYHCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgr/wAARCABQAFADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD9/KKKKACivEP2yP28/hB+xxYaRomvadq3irx14rnNt4F+GvhK2F1rXiC49IYsgRwqeZLiQrHGM5JPB8Z/4J2ftTfHz/gpH4C+OHhX9pDw1L8NNQ8J/E+TwquieDNYZL3SI7e3t5JYWvlJ82UyM6vLGFXaSEA4NdKwld4d17e6v+G0W79djneJoquqN/ef9an2Zf6zpOlKH1PUre3B6G4mVM/99EUWGsaVqqF9M1K3uAOpt5lfH/fJNeM2f/BOL9i6J/tOs/AvTtduiP3l74nurjU55D/eZ7qRyTS3X/BOT9i55PtWjfAjTNDuQP3d74ZubjTJ4z2KvayIQa5joPbgQehorwmf4M/tPfA1RqnwF+M9z420qDl/BHxKuvNlkQdVttUVfOifAwonWVfUjrXafAv9pDwZ8b/7Q0GHTr/QPFOhMsfiTwdrsQiv9Nc9GZQSssTdUmjLRuOhzwAD0KiiigArx/8Abj/a58N/sW/s/wCofF7VNBuNd1ie7g0nwb4UsD/pXiHW7p/Ks9PhHJ3SSHkgHaiu2Plr2CvjO509f2vf+Cv8tprKfafB/wCy94Ttri1tHIMUvjHW42ZZiOjNbacg255R7vIwa6MNThOblP4Yq7/y+baXzMMRUlCKjD4pOy/z+Suzs/2Df2H9Z+DVxqX7T37T+rW3i34+ePYkl8aeKWXfFpEJ+ZNE0wHP2ewtwdgC4MrKZHzkAeUf8EWh/wAXX/bEIGAf2qtdx/35gr7vwAAAOBivg7/gik+74n/thf8AZ1evf+ioa64VZ1sLXnLe0fz2XkuhyzpQpYijGP8Ae/LqfeVFFcDc/tV/sw2l1LY3X7RngOOaGVo5oZPGFirRupIZWBlyCCCCDyCK86MZS2Vz0HKMd2d9Xlv7Rn7Ptx8S1sviV8MtVi0D4jeGVaTwv4jEfyyDq1hdgczWc2Nroc7SQ64ZedMftW/swHp+0Z4D/wDCxsf/AI7Qf2rf2YArMf2jPAeFGST4xseB6n97T9nU/lf3E+0p90Sfs7/G2y+O/wAOo/FEmjy6TrFjdy6b4n0C4bMuk6nAds9s574bDK38aOjD71d3Xgcj2Xwl/bZ0nxR4fuom8PfGjQHt7s28oaFtasIvOt7gEfKTNZGRCR977OnWvfKgsRsFSD34r5E/4JKy23ipf2ifi7JukvPE37TvitJLh2yxt7BoNOt0z6LHbAAdsmvrt+FJ9Oa+Pv8AgktJB4U1v9pb4JXCvFeeFv2mvElyIHABFpqa2+o2749GWdsHvg110f8Adatv7v3X/wA7HLV/3mn8/vt/lc+wj0/Gvgj/AIImug+KP7YZZ8f8ZUa7wf8ArlFX3uen41+PH7D/AOxZ+0h+03+0N+1X4p+Cn/BRLx98HLDT/wBpHXbS90TwjplvPFfzZV/tLtKwIfa6pgDGIx17dOBhCpha6lJRVo6u/fyTZhjJThiaLjG/xaadvOx+wkkke3/WL94d/evyo/4JJf8ABLv9gL9qv9nzxh8Xf2if2WvC/irxHcfGnxhbPq+qRSmVoYtVlSNPkkUYUZxxXsp/4JNft4Lhh/wXL+NuQR10LT/5bq8P/wCCdGpfFXwL/wAExdI8I+BvjHrGm6zqf7WGreHdQ8U2iR/ariObVJ4ppirhl3Ow8wjpuPXFaQSwuBqSo1ru8fh5l/N3SJm3XxcI1adlaW9n27Nn1e3/AAQp/wCCRbdf2FfA/wCEVwP/AGtTZP8AghB/wSKmiaF/2E/BRV1KsAtyMg8HpNXVv+xb+0Ix+T/gor8TgM97HTun/fmvf/DOiN4b8P2egvrN9qLWlskTX2pT+ZcXBUYMkjAAFj1JAA54AFcX1/H/APP2X/gT/wAzr+q4X/n3H7keI/tceGdA+G/w4+FreENLisbPwb8T/C8Gk2sGQtvbNOLDyl77fInKY9K97XpivEP24XXU9G+HPgSJgbjX/i94fijQDLbLe4N7KwH+zHbMTXuAxjIrk3OjYK+LPGN+P2MP+CvOneP9Yke28D/tQ+G7bw9eXjNiG18ZaSjmxVz0U3Vi8kS92kgAr7Tryr9s/wDZM8A/tq/s+a18BvH13c2IvvLutF13Tzi70TU4HElpqFu3VZYZQrDBGRuU8Ma6cLUhCo4z+GSs/wDP5NJ/IwxFOU4Jx+KLuv8AL5q6+Z6pkMu4Hiviz/gkT8GPi98IviH+1Lf/ABS+G+s+H7fxR+0brGseG5tWsjEup2EkcYS6gJ+/ExBww4OK6X9gv9tvxvr3iu5/YY/bagtvD3x88HWf+kD/AFdl4501MrHrmlscCVJFG6aFfnhk3gqB936uXbjK457iqk6uFjOi18VtfJapryZEVTxMoVU/hvp5ve/mgcZH4j+dfl9+zP8ACX4q/A/9hnw14b+L3w91bw1qkv7Zs+pW9hrFqYZZbSfWZnhnVT1R1O5T3HNfqFXzv/wUdTd4D+G8Sj7/AMavDQx6/wCkPWMa0o0ZU7aSaf3X/wAzaVNSqRn2v+Nv8j6IHT8aCcDJpB0ryL9or4/674f1a3+AnwItoNW+Jmv2xawtXG630K1J2tql8R/q4Y+qofmmcBFBySMjQwLa8Px7/bkW508+b4d+DOlzQyzgApN4i1CMK0YPQm3s87v7rXOOor32uM+AfwV8PfAL4Z2Xw80G8nvZI3kudW1e8ObjVL6Vi9xdzHvJJISx9BhRwors6ACiiigDx/8AbB/Ye+BH7bHgyz8OfFnSb201bRLv7b4S8ZeHr1rLWvDl4MYubK6T5om4GVOUfADKcCvCtJ+IH/BWH9iZD4d+Knwmtv2n/A9muLLxl4GuLfSfF8MAwB9s02dltr6QDjfbyIzHkrk19q0EAjBGa6KeJlGHJJKUez6ej3X5d0YToRlPni3GXddfVbP8/M+P4v8AguD+w5oB+yfG2H4m/DG/BxLpvxC+EWt2UkZ7gvHbSRHHqHIqX9pn9oH4dftV/szfDn4+fszR61498PQ/GDSruNvD/h67NzOlnPMLjZBLGknysjLlgFJxzg5r66KA9c8+9AVVGFGB7VNSWHlH3ItPzaa/JfmOnGupe/JNeln+b/I8FufF/wC2d8fCdM8B+AIvhH4fm/1viPxY8N7rbxk9bewiZoYH/wBqeRsddhr0T4Jfs/8Aw/8AgPpF3aeE4Lu71LVrj7T4g8R6xdG51HV7jGPOuJ25c9gowiDhVUV24AHQUVibBRRRQB//2Q==" 
+  style="width:60px;height:60px;object-fit:contain;border-radius:50%;
+  mix-blend-mode:screen;margin-bottom:10px;" alt="HFG"></div>
+    <div class="hdr-title" id="hdr-title">THE <span>3S</span> PROCESS</div>
+    <div class="hdr-sub" id="hdr-sub">Tap any circle to explore that pillar</div>
+  </div>
+
+  <!-- MASTER -->
+  <div class="screen active" id="screen-master">
+    <div class="venn-outer"><div class="venn">
+      <div class="vc vc-top m-top" onclick="goTo('income')" id="vc-income">
+        <div class="vc-score-badge" id="badge-income"></div>
+        <div class="vc-s">S</div><div class="vc-label">Safe<br>Income</div>
+        <div class="vc-tap">tap to explore</div>
+      </div>
+      <div class="vc vc-left m-left" onclick="goTo('growth')" id="vc-growth">
+        <div class="vc-score-badge" id="badge-growth"></div>
+        <div class="vc-s">S</div><div class="vc-label">Smart<br>Growth</div>
+        <div class="vc-tap">tap to explore</div>
+      </div>
+      <div class="vc vc-right m-right" onclick="goTo('tax')" id="vc-tax">
+        <div class="vc-score-badge" id="badge-tax"></div>
+        <div class="vc-s">S</div><div class="vc-label">Simple<br>Taxes</div>
+        <div class="vc-tap">tap to explore</div>
+      </div>
+      <div class="venn-center"><div class="venn-center-text">Worry-Free<br>Retirement</div></div>
+    </div></div>
+    <div class="pillar-strip">
+      <div class="ps-item"><div class="ps-name">Safe Income</div><div class="ps-detail">Guaranteed income you cannot outlive</div></div>
+      <div class="ps-item"><div class="ps-name">Smart Growth</div><div class="ps-detail">Investments allocated to your goals</div></div>
+      <div class="ps-item"><div class="ps-name">Simple Taxes</div><div class="ps-detail">Keep more of what you earn — Now, Later, and Never taxed</div></div>
+    </div>
+    <button class="score-nav-btn primary" onclick="goTo('score')">Rate Your Confidence in Each Area &#8594;</button>
+  </div>
+
+  <!-- CONFIDENCE SCORING -->
+  <div class="screen score-screen" id="screen-score">
+    <div class="score-intro">
+      <div class="score-intro-q">"On a scale of 1 to 10, how confident are you<br>that this area of your retirement is handled?"</div>
+      <div class="score-intro-note">No wrong answers &#8212; and <strong>no 7s</strong>. Pick the number that&#39;s honest.</div>
+    </div>
+
+    <div class="score-pillar" id="sp-income">
+      <div class="score-pillar-header">
+        <div class="score-pillar-dot dot-income"></div>
+        <div class="score-pillar-name">Safe Income</div>
+        <div class="score-result" id="result-income"></div>
+      </div>
+      <div class="score-numbers" id="nums-income"></div>
+      <div class="score-legend">
+        <span class="legend-low">Serious concerns</span>
+        <span class="legend-skip">&#8592; skip 7 &#8594;</span>
+        <span class="legend-high">Feeling confident</span>
+      </div>
+    </div>
+
+    <div class="score-pillar" id="sp-growth">
+      <div class="score-pillar-header">
+        <div class="score-pillar-dot dot-growth"></div>
+        <div class="score-pillar-name">Smart Growth</div>
+        <div class="score-result" id="result-growth"></div>
+      </div>
+      <div class="score-numbers" id="nums-growth"></div>
+      <div class="score-legend">
+        <span class="legend-low">Serious concerns</span>
+        <span class="legend-skip">&#8592; skip 7 &#8594;</span>
+        <span class="legend-high">Feeling confident</span>
+      </div>
+    </div>
+
+    <div class="score-pillar" id="sp-tax">
+      <div class="score-pillar-header">
+        <div class="score-pillar-dot dot-tax"></div>
+        <div class="score-pillar-name">Simple Taxes</div>
+        <div class="score-result" id="result-tax"></div>
+      </div>
+      <div class="score-numbers" id="nums-tax"></div>
+      <div class="score-legend">
+        <span class="legend-low">Serious concerns</span>
+        <span class="legend-skip">&#8592; skip 7 &#8594;</span>
+        <span class="legend-high">Feeling confident</span>
+      </div>
+    </div>
+
+    <div class="agenda-wrap" id="agenda-wrap">
+      <div class="agenda-header">Today&#39;s Agenda &#8212; Starting With What Matters Most</div>
+      <div class="agenda-items" id="agenda-items"></div>
+    </div>
+
+    <button class="score-nav-btn" onclick="resetScores()">Reset Scores</button>
+  </div>
+
+  <!-- SAFE INCOME -->
+  <div class="screen" id="screen-income">
+    <div class="venn-outer"><div class="venn">
+      <div class="vc vc-top i-top vc-inner"><div class="vc-s">SS</div><div class="vc-label">Social<br>Security</div></div>
+      <div class="vc vc-left i-left vc-inner"><div class="vc-s">P</div><div class="vc-label">Pension /<br>Personal<br>Pension</div></div>
+      <div class="vc vc-right i-right vc-inner"><div class="vc-s">S</div><div class="vc-label">Savings<br>Income</div></div>
+      <div class="venn-center"><div class="venn-center-text">Monthly<br>Certainty</div></div>
+    </div></div>
+    <div class="pillar-strip">
+      <div class="ps-item"><div class="ps-name">Social Security</div><div class="ps-detail">Maximized timing strategy for you and your spouse</div></div>
+      <div class="ps-item"><div class="ps-name">Pension</div><div class="ps-detail">Employer pension or personal pension strategy</div></div>
+      <div class="ps-item"><div class="ps-name">Savings Income</div><div class="ps-detail">Income drawn from your portfolio &amp; protected assets</div></div>
+    </div>
+    <button class="score-nav-btn primary" onclick="goTo('incometool')" style="margin-top:14px;">Build Your Income Plan &#8594;</button>
+  </div>
+
+  <!-- INCOME TOOL -->
+  <div class="screen score-screen" id="screen-incometool">
+
+    <div class="score-intro">
+      <div class="score-intro-q">Build Your Income Plan</div>
+      <div class="score-intro-note">Enter guaranteed income sources and monthly goal to find the gap &#8212; and how to fill it <strong>safely</strong>.</div>
+    </div>
+
+    <!-- Monthly Goal -->
+    <div class="score-pillar" style="padding:14px 18px;">
+      <div class="score-pillar-header" style="margin-bottom:8px;">
+        <div class="score-pillar-dot" style="background:var(--sl)"></div>
+        <div class="score-pillar-name">Monthly Income Goal</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span style="color:var(--sv);font-size:18px;font-weight:700;">$</span>
+        <input type="number" id="it-goal" placeholder="0"
+          style="flex:1;background:rgba(255,255,255,0.08);border:1px solid rgba(184,196,208,0.25);border-radius:3px;padding:10px 12px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:16px;font-weight:700;outline:none;"
+          oninput="itCalc()">
+      </div>
+    </div>
+
+    <!-- Guaranteed Income Sources -->
+    <div class="score-pillar scored" style="padding:14px 18px;">
+      <div class="score-pillar-header" style="margin-bottom:12px;">
+        <div class="score-pillar-dot" style="background:var(--blue)"></div>
+        <div class="score-pillar-name">Current Guaranteed Income Sources</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+
+        <!-- SS Client -->
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="font-size:7.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--sv);width:130px;flex-shrink:0;">SS &#8212; Client</div>
+          <div style="display:flex;align-items:center;flex:1;background:rgba(255,255,255,0.06);border:1px solid rgba(184,196,208,0.18);border-radius:3px;padding:7px 10px;">
+            <span style="color:var(--sv);font-size:11px;margin-right:3px;">$</span>
+            <input type="number" id="it-ss1" placeholder="0" style="flex:1;background:none;border:none;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;outline:none;" oninput="itCalc()">
+          </div>
+          <div style="font-size:9px;color:rgba(184,196,208,0.45);width:36px;text-align:right;">/mo</div>
+        </div>
+
+        <!-- SS Spouse -->
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="font-size:7.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--sv);width:130px;flex-shrink:0;">SS &#8212; Spouse</div>
+          <div style="display:flex;align-items:center;flex:1;background:rgba(255,255,255,0.06);border:1px solid rgba(184,196,208,0.18);border-radius:3px;padding:7px 10px;">
+            <span style="color:var(--sv);font-size:11px;margin-right:3px;">$</span>
+            <input type="number" id="it-ss2" placeholder="0" style="flex:1;background:none;border:none;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;outline:none;" oninput="itCalc()">
+          </div>
+          <div style="font-size:9px;color:rgba(184,196,208,0.45);width:36px;text-align:right;">/mo</div>
+        </div>
+
+        <!-- Pension -->
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="font-size:7.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--sv);width:130px;flex-shrink:0;">Pension</div>
+          <div style="display:flex;align-items:center;flex:1;background:rgba(255,255,255,0.06);border:1px solid rgba(184,196,208,0.18);border-radius:3px;padding:7px 10px;">
+            <span style="color:var(--sv);font-size:11px;margin-right:3px;">$</span>
+            <input type="number" id="it-pension" placeholder="0" style="flex:1;background:none;border:none;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;outline:none;" oninput="itCalc()">
+          </div>
+          <div style="font-size:9px;color:rgba(184,196,208,0.45);width:36px;text-align:right;">/mo</div>
+        </div>
+
+        <!-- Other -->
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="font-size:7.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--sv);width:130px;flex-shrink:0;">Other</div>
+          <div style="display:flex;align-items:center;flex:1;background:rgba(255,255,255,0.06);border:1px solid rgba(184,196,208,0.18);border-radius:3px;padding:7px 10px;">
+            <span style="color:var(--sv);font-size:11px;margin-right:3px;">$</span>
+            <input type="number" id="it-other" placeholder="0" style="flex:1;background:none;border:none;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;outline:none;" oninput="itCalc()">
+          </div>
+          <div style="font-size:9px;color:rgba(184,196,208,0.45);width:36px;text-align:right;">/mo</div>
+        </div>
+
+        <!-- Total -->
+        <div style="display:flex;align-items:center;gap:8px;padding-top:6px;border-top:1px solid rgba(184,196,208,0.12);margin-top:2px;">
+          <div style="font-size:7.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--sl);width:130px;flex-shrink:0;">Total Guaranteed</div>
+          <div style="flex:1;padding:7px 10px;background:rgba(27,79,138,0.3);border-radius:3px;border:1px solid rgba(184,196,208,0.2);">
+            <span style="color:var(--white);font-family:'Montserrat',sans-serif;font-size:13px;font-weight:800;" id="it-total-display">$0</span>
+          </div>
+          <div style="font-size:9px;color:rgba(184,196,208,0.45);width:36px;text-align:right;">/mo</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div class="agenda-wrap" id="it-results">
+      <div class="agenda-header" id="it-results-header">Income Gap Analysis</div>
+      <div style="padding:14px 18px;">
+
+        <!-- Gap / Surplus display -->
+        <div id="it-gap-box" style="display:none;background:rgba(183,28,28,0.12);border:1px solid rgba(183,28,28,0.3);border-radius:3px;padding:12px 14px;margin-bottom:12px;">
+          <div style="font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#EF9A9A;margin-bottom:6px;">Monthly Income Gap</div>
+          <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:8px;">
+            <span id="it-gap-amount" style="font-size:28px;font-weight:800;color:#EF9A9A;"></span>
+            <span style="font-size:9px;color:rgba(255,255,255,0.4);">per month uncovered</span>
+          </div>
+          <div style="font-size:8.5px;color:rgba(255,255,255,0.55);line-height:1.6;border-top:1px solid rgba(183,28,28,0.2);padding-top:8px;">
+            &#9888; This gap is currently being filled by pulling from investments subject to market risk. In a down market, selling assets to cover living expenses can permanently damage a portfolio.
+          </div>
+        </div>
+
+        <div id="it-surplus-box" style="display:none;background:rgba(46,125,50,0.12);border:1px solid rgba(46,125,50,0.3);border-radius:3px;padding:12px 14px;margin-bottom:12px;">
+          <div style="font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#81C784;margin-bottom:4px;">Income Covered</div>
+          <div id="it-surplus-text" style="font-size:9px;color:rgba(255,255,255,0.7);line-height:1.6;"></div>
+        </div>
+
+        <!-- Fill the Gap tool — only shows when there's a gap -->
+        <div id="it-fill-wrap" style="display:none;">
+          <div style="font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--sl);margin-bottom:10px;">How to Fill the Gap Safely</div>
+
+          <!-- Withdrawal rate input -->
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+            <div style="font-size:8px;color:rgba(184,196,208,0.6);flex:1;line-height:1.5;">Withdrawal Rate<br><span style="font-size:7px;color:rgba(184,196,208,0.35);">Annual % drawn from segmented assets</span></div>
+            <div style="display:flex;align-items:center;background:rgba(255,255,255,0.06);border:1px solid rgba(184,196,208,0.2);border-radius:3px;padding:7px 10px;width:90px;">
+              <input type="number" id="it-rate" placeholder="4" min="1" max="10" step="0.5"
+                style="flex:1;background:none;border:none;color:var(--white);font-family:'Montserrat',sans-serif;font-size:14px;font-weight:700;outline:none;width:40px;"
+                oninput="itCalc()">
+              <span style="color:var(--sv);font-size:14px;font-weight:700;">%</span>
+            </div>
+          </div>
+
+          <!-- Result -->
+          <div id="it-segment-box" style="background:rgba(27,79,138,0.25);border:1px solid rgba(27,79,138,0.4);border-radius:3px;padding:14px 16px;">
+            <div style="font-size:7.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--sv);margin-bottom:8px;">Assets Needed to Fill Gap</div>
+            <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:6px;">
+              <span id="it-segment-amount" style="font-size:26px;font-weight:800;color:var(--white);"></span>
+              <span style="font-size:9px;color:rgba(184,196,208,0.45);">segmented to income</span>
+            </div>
+            <div id="it-segment-detail" style="font-size:8px;color:rgba(184,196,208,0.5);line-height:1.6;"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <button class="score-nav-btn" onclick="itReset()" style="margin-top:12px;">Reset</button>
+  </div>
+
+  <!-- SMART GROWTH -->
+  <div class="screen" id="screen-growth">
+    <div class="venn-outer"><div class="venn">
+      <div class="vc vc-top g-top" onclick="goTo('foundation')" style="cursor:pointer;"><div class="vc-s">P</div><div class="vc-label">Protected</div><div class="vc-tap">tap to explore</div></div>
+      <div class="vc vc-left g-left" onclick="goTo('walls')" style="cursor:pointer;"><div class="vc-s">I</div><div class="vc-label">Income</div><div class="vc-tap">tap to explore</div></div>
+      <div class="vc vc-right g-right" onclick="goTo('roof')" style="cursor:pointer;"><div class="vc-s">M</div><div class="vc-label">Market</div><div class="vc-tap">tap to explore</div></div>
+      <div class="venn-center"><div class="venn-center-text">Your<br>Allocation</div></div>
+    </div></div>
+    <div class="pillar-strip">
+      <div class="ps-item"><div class="ps-name">Protected</div><div class="ps-detail">100% safe from market decline &#8212; your foundation</div></div>
+      <div class="ps-item"><div class="ps-name">Income</div><div class="ps-detail">Guaranteed income positions &#8212; your walls</div></div>
+      <div class="ps-item"><div class="ps-name">Market</div><div class="ps-detail">Growth-oriented investments &#8212; your roof</div></div>
+    </div>
+    <button class="score-nav-btn primary" onclick="goTo('house')" style="margin-top:14px;">Build Your Financial House &#8594;</button>
+  </div>
+
+
+  <!-- FINANCIAL HOUSE -->
+  <div class="screen score-screen" id="screen-house">
+
+    <div class="score-intro">
+      <div class="score-intro-q">Build Your Financial House</div>
+      <div class="score-intro-note">Enter their total assets and how each bucket is currently allocated. Then set what they <strong>want</strong> safe.</div>
+    </div>
+
+    <!-- Total Assets -->
+    <div class="score-pillar" style="padding:14px 18px;">
+      <div class="score-pillar-header" style="margin-bottom:8px;">
+        <div class="score-pillar-dot" style="background:var(--sl)"></div>
+        <div class="score-pillar-name">Total Investable Assets</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span style="color:var(--sv);font-size:18px;font-weight:700;">$</span>
+        <input type="number" id="fh-total" placeholder="0"
+          style="flex:1;background:rgba(255,255,255,0.08);border:1px solid rgba(184,196,208,0.25);border-radius:3px;padding:10px 12px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:16px;font-weight:700;outline:none;"
+          oninput="fhCalc()">
+      </div>
+    </div>
+
+    <!-- What They Want Safe -->
+    <div class="score-pillar" style="padding:14px 18px;">
+      <div class="score-pillar-header" style="margin-bottom:10px;">
+        <div class="score-pillar-dot" style="background:#B71C1C;"></div>
+        <div class="score-pillar-name">What Do You Want Safe From Market Loss?</div>
+      </div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;">
+        <div id="fh-want-pct" style="font-size:28px;font-weight:800;color:var(--sl);min-width:60px;text-align:center;line-height:1.2;">--%</div>
+      </div>
+      <input type="range" id="fh-want-slider" min="0" max="100" value="50" step="5"
+        style="width:100%;margin:10px 0 4px;accent-color:var(--blue);"
+        oninput="fhSliderMove(this.value)">
+      <div style="display:flex;justify-content:space-between;">
+        <span style="font-size:7px;color:rgba(184,196,208,0.4);">0% at risk</span>
+        <span style="font-size:7px;color:rgba(184,196,208,0.4);">100% safe</span>
+      </div>
+    </div>
+
+    <!-- Current Allocation inputs -->
+    <div class="score-pillar scored" style="padding:14px 18px;">
+      <div class="score-pillar-header" style="margin-bottom:12px;">
+        <div class="score-pillar-dot" style="background:var(--sv)"></div>
+        <div class="score-pillar-name">Current Allocation — Enter Each Bucket</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+        <!-- Protected -->
+        <div style="text-align:center;">
+          <div style="font-size:7px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--sl);margin-bottom:6px;">Protected</div>
+          <div style="display:flex;align-items:center;background:rgba(255,255,255,0.06);border:1px solid rgba(184,196,208,0.2);border-radius:3px;padding:6px 8px;margin-bottom:4px;">
+            <span style="color:var(--sv);font-size:11px;margin-right:3px;">$</span>
+            <input type="number" id="fh-protected" placeholder="0"
+              style="flex:1;background:none;border:none;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;outline:none;width:100%;"
+              oninput="fhCalc()">
+          </div>
+          <div id="fh-prot-pct" style="font-size:9px;color:rgba(184,196,208,0.5);">--%</div>
+        </div>
+        <!-- Income -->
+        <div style="text-align:center;">
+          <div style="font-size:7px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--sl);margin-bottom:6px;">Income</div>
+          <div style="display:flex;align-items:center;background:rgba(255,255,255,0.06);border:1px solid rgba(184,196,208,0.2);border-radius:3px;padding:6px 8px;margin-bottom:4px;">
+            <span style="color:var(--sv);font-size:11px;margin-right:3px;">$</span>
+            <input type="number" id="fh-income" placeholder="0"
+              style="flex:1;background:none;border:none;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;outline:none;width:100%;"
+              oninput="fhCalc()">
+          </div>
+          <div id="fh-inc-pct" style="font-size:9px;color:rgba(184,196,208,0.5);">--%</div>
+        </div>
+        <!-- Market -->
+        <div style="text-align:center;">
+          <div style="font-size:7px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--sl);margin-bottom:6px;">Market</div>
+          <div style="display:flex;align-items:center;background:rgba(255,255,255,0.06);border:1px solid rgba(184,196,208,0.2);border-radius:3px;padding:6px 8px;margin-bottom:4px;">
+            <span style="color:var(--sv);font-size:11px;margin-right:3px;">$</span>
+            <input type="number" id="fh-market" placeholder="0"
+              style="flex:1;background:none;border:none;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;outline:none;width:100%;"
+              oninput="fhCalc()">
+          </div>
+          <div id="fh-mkt-pct" style="font-size:9px;color:rgba(184,196,208,0.5);">--%</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div class="agenda-wrap" id="fh-results">
+      <div class="agenda-header">Your Financial House — At a Glance</div>
+      <div style="padding:16px 18px;">
+
+        <!-- Visual bar -->
+        <div style="margin-bottom:16px;">
+          <div style="display:flex;gap:3px;height:28px;border-radius:3px;overflow:hidden;margin-bottom:6px;">
+            <div id="fh-bar-prot" style="background:#0D2340;transition:width .4s;display:flex;align-items:center;justify-content:center;min-width:0;overflow:hidden;">
+              <span id="fh-bar-prot-lbl" style="font-size:8px;font-weight:700;color:var(--sl);white-space:nowrap;padding:0 4px;"></span>
+            </div>
+            <div id="fh-bar-inc" style="background:#1B4F8A;transition:width .4s;display:flex;align-items:center;justify-content:center;min-width:0;overflow:hidden;">
+              <span id="fh-bar-inc-lbl" style="font-size:8px;font-weight:700;color:var(--sl);white-space:nowrap;padding:0 4px;"></span>
+            </div>
+            <div id="fh-bar-mkt" style="background:#4A90C4;transition:width .4s;display:flex;align-items:center;justify-content:center;min-width:0;overflow:hidden;">
+              <span id="fh-bar-mkt-lbl" style="font-size:8px;font-weight:700;color:var(--sl);white-space:nowrap;padding:0 4px;"></span>
+            </div>
+          </div>
+          <div style="display:flex;gap:12px;justify-content:center;">
+            <span style="font-size:7px;color:rgba(184,196,208,0.5);"><span style="display:inline-block;width:8px;height:8px;background:#0D2340;border-radius:1px;margin-right:3px;vertical-align:middle;"></span>Protected</span>
+            <span style="font-size:7px;color:rgba(184,196,208,0.5);"><span style="display:inline-block;width:8px;height:8px;background:#1B4F8A;border-radius:1px;margin-right:3px;vertical-align:middle;"></span>Income</span>
+            <span style="font-size:7px;color:rgba(184,196,208,0.5);"><span style="display:inline-block;width:8px;height:8px;background:#4A90C4;border-radius:1px;margin-right:3px;vertical-align:middle;"></span>Market</span>
+          </div>
+        </div>
+
+        <!-- Gap callout -->
+        <div id="fh-gap-box" style="background:rgba(183,28,28,0.12);border:1px solid rgba(183,28,28,0.3);border-radius:3px;padding:12px 14px;display:none;">
+          <div style="font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#EF9A9A;margin-bottom:6px;">Safety Gap</div>
+          <div id="fh-gap-text" style="font-size:9px;color:rgba(255,255,255,0.7);line-height:1.6;"></div>
+        </div>
+
+        <div id="fh-aligned-box" style="background:rgba(46,125,50,0.12);border:1px solid rgba(46,125,50,0.3);border-radius:3px;padding:12px 14px;display:none;">
+          <div style="font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#81C784;margin-bottom:4px;">Well Positioned</div>
+          <div style="font-size:9px;color:rgba(255,255,255,0.7);">Their current safe allocation meets or exceeds what they want protected.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <button class="score-nav-btn" onclick="fhReset()" style="margin-top:12px;">Reset</button>
+  </div>
+
+
+  <!-- WALLS SCREEN — Financial House with Walls highlighted -->
+  <div class="screen score-screen" id="screen-walls">
+    <div class="score-intro">
+      <div class="score-intro-q">The Income Bucket — Your Walls</div>
+      <div class="score-intro-note">The layer between protection and growth. Fixed income positions that generate yield with managed risk.</div>
+    </div>
+
+    <div style="margin-bottom:20px;">
+      <svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:400px;display:block;margin:0 auto;">
+        <!-- ROOF -->
+        <polygon points="200,20 340,100 60,100" fill="rgba(74,144,196,0.2)" stroke="rgba(74,144,196,0.25)" stroke-width="1.5"/>
+        <text x="200" y="72" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="11" font-weight="700" fill="rgba(184,196,208,0.35)" letter-spacing="2">ROOF</text>
+        <text x="200" y="87" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="8" fill="rgba(184,196,208,0.25)">Market</text>
+        <!-- WALLS — highlighted -->
+        <rect x="60" y="100" width="280" height="100" rx="2" fill="rgba(27,79,138,0.75)" stroke="#4A90C4" stroke-width="2.5"/>
+        <rect x="60" y="100" width="280" height="100" rx="2" fill="none" stroke="rgba(74,144,196,0.3)" stroke-width="6"/>
+        <text x="200" y="145" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="13" font-weight="800" fill="#ffffff" letter-spacing="3">WALLS</text>
+        <text x="200" y="162" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="9" fill="rgba(216,226,236,0.8)">Income Bucket</text>
+        <text x="200" y="178" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="8" fill="rgba(74,144,196,0.9)">Fixed Income Earning for You</text>
+        <!-- FOUNDATION -->
+        <rect x="50" y="200" width="300" height="50" rx="2" fill="rgba(13,35,64,0.6)" stroke="rgba(184,196,208,0.2)" stroke-width="1.5"/>
+        <text x="200" y="221" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="11" font-weight="700" fill="rgba(184,196,208,0.35)" letter-spacing="2">FOUNDATION</text>
+        <text x="200" y="237" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="8" fill="rgba(184,196,208,0.25)">Protected</text>
+        <!-- Focus arrow -->
+        <line x1="28" y1="150" x2="54" y2="150" stroke="#4A90C4" stroke-width="2" marker-end="url(#arrowhead)"/>
+        <defs>
+          <marker id="arrowhead" markerWidth="6" markerHeight="4" refX="6" refY="2" orient="auto">
+            <polygon points="0 0, 6 2, 0 4" fill="#4A90C4"/>
+          </marker>
+        </defs>
+        <text x="22" y="143" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="7" font-weight="700" fill="#4A90C4">FOCUS</text>
+        <text x="22" y="153" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="7" font-weight="700" fill="#4A90C4">HERE</text>
+      </svg>
+    </div>
+
+    <!-- What belongs here -->
+    <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(184,196,208,0.12);border-radius:3px;overflow:hidden;margin-bottom:12px;">
+      <div style="background:var(--blue);padding:8px 14px;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--sl);">What Lives in the Walls</div>
+      <div style="padding:12px 14px;display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+        <div style="display:flex;align-items:flex-start;gap:8px;">
+          <div style="width:6px;height:6px;border-radius:50%;background:#4A90C4;flex-shrink:0;margin-top:4px;"></div>
+          <div><div style="font-size:8.5px;font-weight:700;color:var(--sl);">Bonds</div><div style="font-size:7.5px;color:rgba(184,196,208,0.45);line-height:1.5;">Government, corporate, municipal</div></div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:8px;">
+          <div style="width:6px;height:6px;border-radius:50%;background:#4A90C4;flex-shrink:0;margin-top:4px;"></div>
+          <div><div style="font-size:8.5px;font-weight:700;color:var(--sl);">Income Annuities</div><div style="font-size:7.5px;color:rgba(184,196,208,0.45);line-height:1.5;">Guaranteed income stream</div></div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:8px;">
+          <div style="width:6px;height:6px;border-radius:50%;background:#4A90C4;flex-shrink:0;margin-top:4px;"></div>
+          <div><div style="font-size:8.5px;font-weight:700;color:var(--sl);">Private Credit</div><div style="font-size:7.5px;color:rgba(184,196,208,0.45);line-height:1.5;">Higher yield, less liquid</div></div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:8px;">
+          <div style="width:6px;height:6px;border-radius:50%;background:#4A90C4;flex-shrink:0;margin-top:4px;"></div>
+          <div><div style="font-size:8.5px;font-weight:700;color:var(--sl);">Structured Notes</div><div style="font-size:7.5px;color:rgba(184,196,208,0.45);line-height:1.5;">Bank-issued, defined return</div></div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:8px;">
+          <div style="width:6px;height:6px;border-radius:50%;background:#4A90C4;flex-shrink:0;margin-top:4px;"></div>
+          <div><div style="font-size:8.5px;font-weight:700;color:var(--sl);">Alternatives</div><div style="font-size:7.5px;color:rgba(184,196,208,0.45);line-height:1.5;">Non-correlated income sources</div></div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:8px;">
+          <div style="width:6px;height:6px;border-radius:50%;background:#4A90C4;flex-shrink:0;margin-top:4px;"></div>
+          <div><div style="font-size:8.5px;font-weight:700;color:var(--sl);">Preferred Securities</div><div style="font-size:7.5px;color:rgba(184,196,208,0.45);line-height:1.5;">Hybrid income instruments</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Key characteristics -->
+    <div style="background:rgba(27,79,138,0.2);border:1px solid rgba(74,144,196,0.3);border-radius:3px;padding:12px 14px;margin-bottom:12px;">
+      <div style="font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--sl);margin-bottom:8px;">Walls Characteristics</div>
+      <div style="font-size:8.5px;color:rgba(255,255,255,0.65);line-height:1.8;">
+        &#10003; Generates regular income and yield<br>
+        &#10003; Generally lower volatility than market positions<br>
+        &#9888; Some carry credit or interest rate risk<br>
+        &#10003; Often where clients are leaving money on the table
+      </div>
+    </div>
+
+    <div class="pillar-strip">
+      <div class="ps-item"><div class="ps-name">Foundation</div><div class="ps-detail">Protected — no market risk</div></div>
+      <div class="ps-item" style="border:1px solid rgba(74,144,196,0.4);border-radius:3px;background:rgba(27,79,138,0.2);"><div class="ps-name" style="color:#4A90C4;">Walls</div><div class="ps-detail" style="color:rgba(255,255,255,0.6);">Income — fixed income positions</div></div>
+      <div class="ps-item"><div class="ps-name">Roof</div><div class="ps-detail">Market — growth exposure</div></div>
+    </div>
+
+    <button class="score-nav-btn primary" onclick="goTo('wallscalc')" style="margin-top:14px;">Upgrade Your Walls &#8594;</button>
+  </div>
+
+  <!-- WALLS CALCULATOR -->
+  <div class="screen score-screen" id="screen-wallscalc">
+    <div class="score-intro">
+      <div class="score-intro-q">Walls Upgrade Calculator</div>
+      <div class="score-intro-note">Show them how much more their fixed income could be earning.</div>
+    </div>
+
+    <!-- Current vs Proposed inputs -->
+    <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(184,196,208,0.12);border-radius:3px;overflow:hidden;margin-bottom:10px;">
+      <div style="background:var(--blue);padding:8px 14px;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--sl);">Current Walls Position</div>
+      <div style="padding:14px;display:flex;flex-direction:column;gap:9px;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="font-size:7.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--sv);width:150px;flex-shrink:0;">Amount in Fixed Income</div>
+          <div style="display:flex;align-items:center;flex:1;background:rgba(255,255,255,0.06);border:1px solid rgba(184,196,208,0.18);border-radius:3px;padding:7px 10px;">
+            <span style="color:var(--sv);font-size:11px;margin-right:3px;">$</span>
+            <input type="number" id="wc-amount" placeholder="0"
+              style="flex:1;background:none;border:none;color:var(--white);font-family:'Montserrat',sans-serif;font-size:14px;font-weight:700;outline:none;"
+              oninput="wcCalc()" onchange="wcCalc()">
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="font-size:7.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--sv);width:150px;flex-shrink:0;">Current Rate</div>
+          <div style="display:flex;align-items:center;flex:1;background:rgba(255,255,255,0.06);border:1px solid rgba(184,196,208,0.18);border-radius:3px;padding:7px 10px;">
+            <input type="number" id="wc-current-rate" placeholder="4.0" step="0.1"
+              style="flex:1;background:none;border:none;color:var(--white);font-family:'Montserrat',sans-serif;font-size:14px;font-weight:700;outline:none;"
+              oninput="wcCalc()" onchange="wcCalc()">
+            <span style="color:var(--sv);font-size:12px;margin-left:4px;">%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(46,125,50,0.3);border-radius:3px;overflow:hidden;margin-bottom:10px;">
+      <div style="background:rgba(46,125,50,0.35);padding:8px 14px;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#81C784;">HFG Proposed Rate</div>
+      <div style="padding:14px;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="font-size:7.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--sv);width:150px;flex-shrink:0;">Proposed Rate</div>
+          <div style="display:flex;align-items:center;flex:1;background:rgba(255,255,255,0.06);border:1px solid rgba(46,125,50,0.35);border-radius:3px;padding:7px 10px;">
+            <input type="number" id="wc-proposed-rate" placeholder="6.5" step="0.1"
+              style="flex:1;background:none;border:none;color:#81C784;font-family:'Montserrat',sans-serif;font-size:14px;font-weight:800;outline:none;"
+              oninput="wcCalc()" onchange="wcCalc()">
+            <span style="color:#81C784;font-size:12px;margin-left:4px;">%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div id="wc-results" style="display:none;">
+
+      <!-- Visual comparison bar -->
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(184,196,208,0.12);border-radius:3px;padding:14px;margin-bottom:10px;">
+        <div style="font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--sl);margin-bottom:12px;">Annual Interest Comparison</div>
+
+        <!-- Current bar -->
+        <div style="margin-bottom:10px;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+            <span style="font-size:8px;color:rgba(184,196,208,0.55);">Current</span>
+            <span id="wc-current-annual" style="font-size:12px;font-weight:800;color:rgba(184,196,208,0.7);"></span>
+          </div>
+          <div style="background:rgba(255,255,255,0.06);border-radius:2px;height:14px;overflow:hidden;">
+            <div id="wc-bar-current" style="height:100%;background:rgba(184,196,208,0.4);transition:width .5s;border-radius:2px;"></div>
+          </div>
+        </div>
+
+        <!-- Proposed bar -->
+        <div style="margin-bottom:10px;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+            <span style="font-size:8px;color:#81C784;">With HFG</span>
+            <span id="wc-proposed-annual" style="font-size:12px;font-weight:800;color:#81C784;"></span>
+          </div>
+          <div style="background:rgba(255,255,255,0.06);border-radius:2px;height:14px;overflow:hidden;">
+            <div id="wc-bar-proposed" style="height:100%;background:rgba(46,125,50,0.7);transition:width .5s;border-radius:2px;"></div>
+          </div>
+        </div>
+
+        <!-- Gap highlight -->
+        <div style="background:rgba(27,79,138,0.25);border:1px solid rgba(27,79,138,0.4);border-radius:3px;padding:10px 12px;display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:8px;color:rgba(184,196,208,0.6);">Additional annual interest</span>
+          <span id="wc-gap-annual" style="font-size:20px;font-weight:800;color:var(--sl);"></span>
+        </div>
+      </div>
+
+      <!-- Monthly / 5yr / 10yr breakdown -->
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px;">
+        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(184,196,208,0.1);border-radius:3px;padding:12px;text-align:center;">
+          <div style="font-size:7px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--sv);margin-bottom:6px;">Monthly</div>
+          <div id="wc-gap-month" style="font-size:16px;font-weight:800;color:#81C784;"></div>
+          <div style="font-size:7px;color:rgba(184,196,208,0.35);margin-top:3px;">extra / mo</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(184,196,208,0.1);border-radius:3px;padding:12px;text-align:center;">
+          <div style="font-size:7px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--sv);margin-bottom:6px;">5 Years</div>
+          <div id="wc-gap-5yr" style="font-size:16px;font-weight:800;color:#81C784;"></div>
+          <div style="font-size:7px;color:rgba(184,196,208,0.35);margin-top:3px;">compounded</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(184,196,208,0.1);border-radius:3px;padding:12px;text-align:center;">
+          <div style="font-size:7px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--sv);margin-bottom:6px;">10 Years</div>
+          <div id="wc-gap-10yr" style="font-size:16px;font-weight:800;color:#81C784;"></div>
+          <div style="font-size:7px;color:rgba(184,196,208,0.35);margin-top:3px;">compounded</div>
+        </div>
+      </div>
+
+      <!-- Summary statement -->
+      <div style="background:rgba(27,79,138,0.2);border:1px solid rgba(27,79,138,0.35);border-radius:3px;padding:12px 14px;">
+        <div id="wc-summary" style="font-size:9px;color:rgba(255,255,255,0.75);line-height:1.7;"></div>
+      </div>
+
+    </div>
+
+    <button class="score-nav-btn primary" onclick="wcCalc()" style="margin-top:12px;">Calculate &#8594;</button>
+    <button class="score-nav-btn" onclick="wcReset()" style="margin-top:8px;">Reset</button>
+  </div>
+
+
+  <!-- FOUNDATION SCREEN -->
+  <div class="screen score-screen" id="screen-foundation">
+    <div class="score-intro">
+      <div class="score-intro-q">The Protected Bucket — Your Foundation</div>
+      <div class="score-intro-note">Principally protected. Doesn&#39;t drop when the market drops. This is the bedrock of your retirement.</div>
+    </div>
+
+    <div style="margin-bottom:20px;">
+      <svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:400px;display:block;margin:0 auto;">
+        <!-- ROOF -->
+        <polygon points="200,20 340,100 60,100" fill="rgba(74,144,196,0.2)" stroke="rgba(74,144,196,0.25)" stroke-width="1.5"/>
+        <text x="200" y="72" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="11" font-weight="700" fill="rgba(184,196,208,0.35)" letter-spacing="2">ROOF</text>
+        <text x="200" y="87" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="8" fill="rgba(184,196,208,0.25)">Market</text>
+        <!-- WALLS -->
+        <rect x="60" y="100" width="280" height="100" rx="2" fill="rgba(27,79,138,0.25)" stroke="rgba(184,196,208,0.2)" stroke-width="1.5"/>
+        <text x="200" y="147" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="11" font-weight="700" fill="rgba(184,196,208,0.35)" letter-spacing="2">WALLS</text>
+        <text x="200" y="163" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="8" fill="rgba(184,196,208,0.25)">Income</text>
+        <!-- FOUNDATION — highlighted -->
+        <rect x="50" y="200" width="300" height="50" rx="2" fill="rgba(13,35,64,0.95)" stroke="#1B4F8A" stroke-width="2.5"/>
+        <rect x="50" y="200" width="300" height="50" rx="2" fill="none" stroke="rgba(27,79,138,0.35)" stroke-width="6"/>
+        <text x="200" y="221" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="13" font-weight="800" fill="#ffffff" letter-spacing="3">FOUNDATION</text>
+        <text x="200" y="237" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="8" fill="rgba(184,196,208,0.85)">Protected Bucket — Principal Never at Risk</text>
+        <!-- Focus arrow -->
+        <line x1="28" y1="225" x2="44" y2="225" stroke="#1B4F8A" stroke-width="2" marker-end="url(#arrowhead2)"/>
+        <defs>
+          <marker id="arrowhead2" markerWidth="6" markerHeight="4" refX="6" refY="2" orient="auto">
+            <polygon points="0 0, 6 2, 0 4" fill="#1B4F8A"/>
+          </marker>
+        </defs>
+        <text x="22" y="218" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="7" font-weight="700" fill="#1B4F8A">FOCUS</text>
+        <text x="22" y="228" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="7" font-weight="700" fill="#1B4F8A">HERE</text>
+      </svg>
+    </div>
+
+    <!-- What belongs here -->
+    <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(184,196,208,0.12);border-radius:3px;overflow:hidden;margin-bottom:12px;">
+      <div style="background:var(--navy);padding:8px 14px;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--sl);">What Lives in the Foundation</div>
+      <div style="padding:12px 14px;display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+        <div style="display:flex;align-items:flex-start;gap:8px;">
+          <div style="width:6px;height:6px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:4px;"></div>
+          <div><div style="font-size:8.5px;font-weight:700;color:var(--sl);">Fixed Annuities</div><div style="font-size:7.5px;color:rgba(184,196,208,0.45);line-height:1.5;">Guaranteed rate, no market risk</div></div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:8px;">
+          <div style="width:6px;height:6px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:4px;"></div>
+          <div><div style="font-size:8.5px;font-weight:700;color:var(--sl);">Fixed Index Annuities</div><div style="font-size:7.5px;color:rgba(184,196,208,0.45);line-height:1.5;">Market-linked upside, zero floor</div></div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:8px;">
+          <div style="width:6px;height:6px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:4px;"></div>
+          <div><div style="font-size:8.5px;font-weight:700;color:var(--sl);">CDs / Bank Products</div><div style="font-size:7.5px;color:rgba(184,196,208,0.45);line-height:1.5;">FDIC insured, fixed term</div></div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:8px;">
+          <div style="width:6px;height:6px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:4px;"></div>
+          <div><div style="font-size:8.5px;font-weight:700;color:var(--sl);">Principal Protected Notes</div><div style="font-size:7.5px;color:rgba(184,196,208,0.45);line-height:1.5;">Structured, principal guaranteed</div></div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:8px;">
+          <div style="width:6px;height:6px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:4px;"></div>
+          <div><div style="font-size:8.5px;font-weight:700;color:var(--sl);">Money Market / Savings</div><div style="font-size:7.5px;color:rgba(184,196,208,0.45);line-height:1.5;">Liquid, no risk to principal</div></div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:8px;">
+          <div style="width:6px;height:6px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:4px;"></div>
+          <div><div style="font-size:8.5px;font-weight:700;color:var(--sl);">Treasury / I-Bonds</div><div style="font-size:7.5px;color:rgba(184,196,208,0.45);line-height:1.5;">Government-backed, safe</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Key characteristics -->
+    <div style="background:rgba(13,35,64,0.5);border:1px solid rgba(27,79,138,0.4);border-radius:3px;padding:12px 14px;margin-bottom:12px;">
+      <div style="font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--sl);margin-bottom:8px;">Foundation Rules</div>
+      <div style="font-size:8.5px;color:rgba(255,255,255,0.65);line-height:1.8;">
+        &#10003; Principal is never at risk from market declines<br>
+        &#10003; Does not go down when the market goes down<br>
+        &#10003; Guaranteed or contractually protected returns<br>
+        &#10003; The money you simply cannot afford to lose
+      </div>
+    </div>
+
+    <div class="pillar-strip">
+      <div class="ps-item" style="border:1px solid rgba(27,79,138,0.4);border-radius:3px;background:rgba(13,35,64,0.3);"><div class="ps-name" style="color:var(--sl);">Foundation</div><div class="ps-detail" style="color:rgba(255,255,255,0.6);">Protected — no market risk</div></div>
+      <div class="ps-item"><div class="ps-name">Walls</div><div class="ps-detail">Income — fixed income positions</div></div>
+      <div class="ps-item"><div class="ps-name">Roof</div><div class="ps-detail">Market — growth exposure</div></div>
+    </div>
+    <button class="score-nav-btn primary" onclick="goTo('fiacalc')" style="margin-top:14px;">See How the Foundation Works &#8594;</button>
+  </div>
+
+  <!-- FIA CALCULATOR -->
+  <div class="screen score-screen" id="screen-fiacalc">
+    <div class="score-intro">
+      <div class="score-intro-q">Fixed Index Annuity — The Foundation Story</div>
+      <div class="score-intro-note">None of the losses. Some of the upside. Show them what that actually means.</div>
+    </div>
+
+    <!-- PART 1: Concept Visual -->
+    <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(184,196,208,0.12);border-radius:3px;overflow:hidden;margin-bottom:12px;">
+      <div style="background:var(--blue);padding:8px 14px;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--sl);">The Concept — How It Works</div>
+      <div style="padding:14px 14px 10px;">
+        <canvas id="fia-concept-chart" style="width:100%;height:160px;display:block;"></canvas>
+        <div style="display:flex;gap:20px;justify-content:center;margin-top:10px;">
+          <div style="display:flex;align-items:center;gap:6px;">
+            <div style="width:28px;height:3px;background:#EF5350;border-radius:2px;"></div>
+            <span style="font-size:8px;color:rgba(184,196,208,0.7);">S&amp;P 500 — Market</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <div style="width:28px;height:3px;background:#66BB6A;border-radius:2px;"></div>
+            <span style="font-size:8px;color:rgba(184,196,208,0.7);">Fixed Index Annuity</span>
+          </div>
+        </div>
+        <div style="text-align:center;margin-top:6px;font-size:7.5px;color:rgba(184,196,208,0.35);font-style:italic;">Conceptual illustration — not actual returns</div>
+      </div>
+    </div>
+
+    <!-- PART 2: Period selector + inputs -->
+    <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(184,196,208,0.12);border-radius:3px;overflow:hidden;margin-bottom:12px;">
+      <div style="background:var(--navy);padding:8px 14px;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--sl);">Historical Comparison — S&amp;P 500 vs FIA</div>
+      <div style="padding:14px;display:flex;flex-direction:column;gap:10px;">
+
+        <!-- Period selector -->
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div style="font-size:7.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--sv);">Select Period</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;" id="fia-period-btns">
+            <button onclick="fiaSetPeriod(1999,2024,this)" class="fia-period-btn active" style="font-size:8px;padding:7px 6px;background:rgba(27,79,138,0.5);border:1px solid rgba(27,79,138,0.6);border-radius:3px;color:var(--white);font-family:'Montserrat',sans-serif;font-weight:700;cursor:pointer;">All 26 Years<br><span style="font-size:7px;opacity:0.6;font-weight:400;">1999–2024</span></button>
+            <button onclick="fiaSetPeriod(1999,2008,this)" class="fia-period-btn" style="font-size:8px;padding:7px 6px;background:rgba(255,255,255,0.04);border:1px solid rgba(184,196,208,0.15);border-radius:3px;color:var(--sv);font-family:'Montserrat',sans-serif;font-weight:700;cursor:pointer;">Lost Decade<br><span style="font-size:7px;opacity:0.6;font-weight:400;">1999–2008</span></button>
+            <button onclick="fiaSetPeriod(2009,2018,this)" class="fia-period-btn" style="font-size:8px;padding:7px 6px;background:rgba(255,255,255,0.04);border:1px solid rgba(184,196,208,0.15);border-radius:3px;color:var(--sv);font-family:'Montserrat',sans-serif;font-weight:700;cursor:pointer;">Recovery Decade<br><span style="font-size:7px;opacity:0.6;font-weight:400;">2009–2018</span></button>
+            <button onclick="fiaSetPeriod(2015,2024,this)" class="fia-period-btn" style="font-size:8px;padding:7px 6px;background:rgba(255,255,255,0.04);border:1px solid rgba(184,196,208,0.15);border-radius:3px;color:var(--sv);font-family:'Montserrat',sans-serif;font-weight:700;cursor:pointer;">Last 10 Years<br><span style="font-size:7px;opacity:0.6;font-weight:400;">2015–2024</span></button>
+            <button onclick="fiaSetPeriod(2000,2002,this)" class="fia-period-btn" style="font-size:8px;padding:7px 6px;background:rgba(255,255,255,0.04);border:1px solid rgba(184,196,208,0.15);border-radius:3px;color:var(--sv);font-family:'Montserrat',sans-serif;font-weight:700;cursor:pointer;">2000 Crash<br><span style="font-size:7px;opacity:0.6;font-weight:400;">2000–2002</span></button>
+            <button onclick="fiaSetPeriod(2007,2012,this)" class="fia-period-btn" style="font-size:8px;padding:7px 6px;background:rgba(255,255,255,0.04);border:1px solid rgba(184,196,208,0.15);border-radius:3px;color:var(--sv);font-family:'Montserrat',sans-serif;font-weight:700;cursor:pointer;">2008 Crisis<br><span style="font-size:7px;opacity:0.6;font-weight:400;">2007–2012</span></button>
+          </div>
+          <!-- Custom range -->
+          <div style="display:flex;align-items:center;gap:8px;margin-top:4px;">
+            <span style="font-size:7.5px;color:var(--sv);white-space:nowrap;">Custom:</span>
+            <select id="fia-start-yr" onchange="fiaCustomPeriod()" style="flex:1;background:#0D2340;border:1px solid rgba(184,196,208,0.2);border-radius:3px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;padding:5px 6px;outline:none;cursor:pointer;"></select>
+            <span style="font-size:7.5px;color:var(--sv);">to</span>
+            <select id="fia-end-yr" onchange="fiaCustomPeriod()" style="flex:1;background:#0D2340;border:1px solid rgba(184,196,208,0.2);border-radius:3px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;padding:5px 6px;outline:none;cursor:pointer;"></select>
+          </div>
+        </div>
+
+        <!-- Cap rate + amount + fee -->
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div style="font-size:7.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--sv);width:150px;flex-shrink:0;">FIA Cap Rate</div>
+            <div style="display:flex;align-items:center;flex:1;background:rgba(255,255,255,0.06);border:1px solid rgba(46,125,50,0.35);border-radius:3px;padding:7px 10px;">
+              <input type="number" id="fia-cap" placeholder="10" step="0.5"
+                style="flex:1;background:none;border:none;color:#81C784;font-family:'Montserrat',sans-serif;font-size:14px;font-weight:800;outline:none;"
+                oninput="fiaCalc()" onchange="fiaCalc()">
+              <span style="color:#81C784;font-size:12px;margin-left:4px;">%</span>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div style="font-size:7.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--sv);width:150px;flex-shrink:0;">Amount Invested</div>
+            <div style="display:flex;align-items:center;flex:1;background:rgba(255,255,255,0.06);border:1px solid rgba(184,196,208,0.18);border-radius:3px;padding:7px 10px;">
+              <span style="color:var(--sv);font-size:11px;margin-right:3px;">$</span>
+              <input type="number" id="fia-amount" placeholder="100000"
+                style="flex:1;background:none;border:none;color:var(--white);font-family:'Montserrat',sans-serif;font-size:14px;font-weight:700;outline:none;"
+                oninput="fiaCalc()" onchange="fiaCalc()">
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div style="font-size:7.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--sv);width:150px;flex-shrink:0;">S&amp;P Annual Fee</div>
+            <div style="display:flex;align-items:center;flex:1;background:rgba(255,255,255,0.06);border:1px solid rgba(184,196,208,0.18);border-radius:3px;padding:7px 10px;">
+              <input type="number" id="fia-fee" placeholder="0" step="0.1"
+                style="flex:1;background:none;border:none;color:var(--white);font-family:'Montserrat',sans-serif;font-size:14px;font-weight:700;outline:none;"
+                oninput="fiaCalc()" onchange="fiaCalc()">
+              <span style="color:var(--sv);font-size:12px;margin-left:4px;">%</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Year by year table -->
+    <div id="fia-table-wrap" style="display:none;background:rgba(255,255,255,0.03);border:1px solid rgba(184,196,208,0.1);border-radius:3px;overflow:hidden;margin-bottom:12px;">
+      <div style="background:var(--navy);padding:8px 14px;display:grid;grid-template-columns:40px 1fr 1fr 1fr 1fr;gap:4px;">
+        <span style="font-size:7px;font-weight:700;color:var(--sv);">YEAR</span>
+        <span style="font-size:7px;font-weight:700;color:#EF9A9A;text-align:right;">S&amp;P %</span>
+        <span style="font-size:7px;font-weight:700;color:#EF9A9A;text-align:right;">S&amp;P $</span>
+        <span style="font-size:7px;font-weight:700;color:#81C784;text-align:right;">FIA %</span>
+        <span style="font-size:7px;font-weight:700;color:#81C784;text-align:right;">FIA $</span>
+      </div>
+      <div id="fia-table-body" style="max-height:260px;overflow-y:auto;"></div>
+    </div>
+
+    <!-- Summary results -->
+    <div id="fia-summary" style="display:none;margin-bottom:12px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">
+        <div style="background:rgba(183,28,28,0.12);border:1px solid rgba(183,28,28,0.3);border-radius:3px;padding:14px;text-align:center;">
+          <div style="font-size:7.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#EF9A9A;margin-bottom:6px;">S&amp;P 500 Ending Value</div>
+          <div id="fia-sp-end" style="font-size:22px;font-weight:800;color:#EF9A9A;"></div>
+          <div id="fia-sp-gain" style="font-size:8px;color:rgba(239,154,154,0.6);margin-top:4px;"></div>
+        </div>
+        <div style="background:rgba(46,125,50,0.12);border:2px solid rgba(46,125,50,0.4);border-radius:3px;padding:14px;text-align:center;">
+          <div style="font-size:7.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#81C784;margin-bottom:6px;">FIA Ending Value</div>
+          <div id="fia-end" style="font-size:22px;font-weight:800;color:#81C784;"></div>
+          <div id="fia-gain" style="font-size:8px;color:rgba(129,199,132,0.6);margin-top:4px;"></div>
+        </div>
+      </div>
+      <div id="fia-verdict" style="background:rgba(27,79,138,0.2);border:1px solid rgba(27,79,138,0.35);border-radius:3px;padding:12px 14px;">
+        <div id="fia-verdict-text" style="font-size:9px;color:rgba(255,255,255,0.75);line-height:1.7;"></div>
+      </div>
+    </div>
+
+    <button class="score-nav-btn" onclick="fiaReset()" style="margin-top:4px;">Reset</button>
+  </div>
+
+  <!-- ROOF SCREEN -->
+  <div class="screen score-screen" id="screen-roof">
+    <div class="score-intro">
+      <div class="score-intro-q">The Market Bucket — Your Roof</div>
+      <div class="score-intro-note">Growth-oriented. Fluctuates with the market. Higher average returns over time — with higher short-term risk.</div>
+    </div>
+
+    <div style="margin-bottom:20px;">
+      <svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:400px;display:block;margin:0 auto;">
+        <!-- ROOF — highlighted -->
+        <polygon points="200,20 340,100 60,100" fill="rgba(74,144,196,0.65)" stroke="#4A90C4" stroke-width="2.5"/>
+        <!-- Glow -->
+        <polygon points="200,20 340,100 60,100" fill="none" stroke="rgba(74,144,196,0.3)" stroke-width="7"/>
+        <text x="200" y="66" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="13" font-weight="800" fill="#ffffff" letter-spacing="3">ROOF</text>
+        <text x="200" y="82" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="8" fill="rgba(216,226,236,0.85)">Market Bucket — Growth Exposure</text>
+        <!-- Focus arrow -->
+        <line x1="28" y1="62" x2="56" y2="62" stroke="#4A90C4" stroke-width="2" marker-end="url(#arrowhead3)"/>
+        <defs>
+          <marker id="arrowhead3" markerWidth="6" markerHeight="4" refX="6" refY="2" orient="auto">
+            <polygon points="0 0, 6 2, 0 4" fill="#4A90C4"/>
+          </marker>
+        </defs>
+        <text x="22" y="56" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="7" font-weight="700" fill="#4A90C4">FOCUS</text>
+        <text x="22" y="66" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="7" font-weight="700" fill="#4A90C4">HERE</text>
+        <!-- WALLS -->
+        <rect x="60" y="100" width="280" height="100" rx="2" fill="rgba(27,79,138,0.25)" stroke="rgba(184,196,208,0.2)" stroke-width="1.5"/>
+        <text x="200" y="147" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="11" font-weight="700" fill="rgba(184,196,208,0.35)" letter-spacing="2">WALLS</text>
+        <text x="200" y="163" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="8" fill="rgba(184,196,208,0.25)">Income</text>
+        <!-- FOUNDATION -->
+        <rect x="50" y="200" width="300" height="50" rx="2" fill="rgba(13,35,64,0.6)" stroke="rgba(184,196,208,0.2)" stroke-width="1.5"/>
+        <text x="200" y="221" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="11" font-weight="700" fill="rgba(184,196,208,0.35)" letter-spacing="2">FOUNDATION</text>
+        <text x="200" y="237" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="8" fill="rgba(184,196,208,0.25)">Protected</text>
+      </svg>
+    </div>
+
+    <!-- What belongs here -->
+    <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(184,196,208,0.12);border-radius:3px;overflow:hidden;margin-bottom:12px;">
+      <div style="background:var(--sky);padding:8px 14px;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--navy);">What Lives in the Roof</div>
+      <div style="padding:12px 14px;display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+        <div style="display:flex;align-items:flex-start;gap:8px;">
+          <div style="width:6px;height:6px;border-radius:50%;background:var(--sky);flex-shrink:0;margin-top:4px;"></div>
+          <div><div style="font-size:8.5px;font-weight:700;color:var(--sl);">Individual Stocks</div><div style="font-size:7.5px;color:rgba(184,196,208,0.45);line-height:1.5;">Direct equity ownership</div></div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:8px;">
+          <div style="width:6px;height:6px;border-radius:50%;background:var(--sky);flex-shrink:0;margin-top:4px;"></div>
+          <div><div style="font-size:8.5px;font-weight:700;color:var(--sl);">Mutual Funds</div><div style="font-size:7.5px;color:rgba(184,196,208,0.45);line-height:1.5;">Diversified managed portfolios</div></div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:8px;">
+          <div style="width:6px;height:6px;border-radius:50%;background:var(--sky);flex-shrink:0;margin-top:4px;"></div>
+          <div><div style="font-size:8.5px;font-weight:700;color:var(--sl);">Exchange Traded Funds</div><div style="font-size:7.5px;color:rgba(184,196,208,0.45);line-height:1.5;">Low-cost index &amp; sector ETFs</div></div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:8px;">
+          <div style="width:6px;height:6px;border-radius:50%;background:var(--sky);flex-shrink:0;margin-top:4px;"></div>
+          <div><div style="font-size:8.5px;font-weight:700;color:var(--sl);">Variable Annuities</div><div style="font-size:7.5px;color:rgba(184,196,208,0.45);line-height:1.5;">Market-linked with optional riders</div></div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:8px;">
+          <div style="width:6px;height:6px;border-radius:50%;background:var(--sky);flex-shrink:0;margin-top:4px;"></div>
+          <div><div style="font-size:8.5px;font-weight:700;color:var(--sl);">Managed Accounts</div><div style="font-size:7.5px;color:rgba(184,196,208,0.45);line-height:1.5;">Professionally allocated portfolios</div></div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:8px;">
+          <div style="width:6px;height:6px;border-radius:50%;background:var(--sky);flex-shrink:0;margin-top:4px;"></div>
+          <div><div style="font-size:8.5px;font-weight:700;color:var(--sl);">REITs &amp; Alternatives</div><div style="font-size:7.5px;color:rgba(184,196,208,0.45);line-height:1.5;">Real estate, commodities, etc.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Key characteristics -->
+    <div style="background:rgba(74,144,196,0.1);border:1px solid rgba(74,144,196,0.3);border-radius:3px;padding:12px 14px;margin-bottom:12px;">
+      <div style="font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--sl);margin-bottom:8px;">Roof Characteristics</div>
+      <div style="font-size:8.5px;color:rgba(255,255,255,0.65);line-height:1.8;">
+        &#8593; Fluctuates with the market — up and down<br>
+        &#8593; Higher average long-term rate of return<br>
+        &#9888; Subject to market loss — not protected<br>
+        &#10003; Only money here you can afford to stay invested through a downturn
+      </div>
+    </div>
+
+    <div class="pillar-strip">
+      <div class="ps-item"><div class="ps-name">Foundation</div><div class="ps-detail">Protected — no market risk</div></div>
+      <div class="ps-item"><div class="ps-name">Walls</div><div class="ps-detail">Income — fixed income positions</div></div>
+      <div class="ps-item" style="border:1px solid rgba(74,144,196,0.4);border-radius:3px;background:rgba(74,144,196,0.15);"><div class="ps-name" style="color:#4A90C4;">Roof</div><div class="ps-detail" style="color:rgba(255,255,255,0.6);">Market — growth exposure</div></div>
+    </div>
+    <button class="score-nav-btn primary" onclick="goTo('feecalc')" style="margin-top:14px;">See What Fees Are Costing You &#8594;</button>
+  </div>
+
+
+  <!-- FEE CALCULATOR -->
+  <div class="screen score-screen" id="screen-feecalc">
+    <div class="score-intro">
+      <div class="score-intro-q">The Fee Drag Calculator</div>
+      <div class="score-intro-note">Every fee compounds against them. Show them exactly what they&#39;re paying — and what it costs over time.</div>
+    </div>
+
+    <!-- Account inputs -->
+    <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(184,196,208,0.12);border-radius:3px;overflow:hidden;margin-bottom:10px;">
+      <div style="background:var(--blue);padding:8px 14px;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--sl);">Account Details</div>
+      <div style="padding:14px;display:flex;flex-direction:column;gap:9px;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="font-size:7.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--sv);width:150px;flex-shrink:0;">Account Value</div>
+          <div style="display:flex;align-items:center;flex:1;background:rgba(255,255,255,0.06);border:1px solid rgba(184,196,208,0.18);border-radius:3px;padding:7px 10px;">
+            <span style="color:var(--sv);font-size:11px;margin-right:3px;">$</span>
+            <input type="number" id="fc-value" placeholder="0"
+              style="flex:1;background:none;border:none;color:var(--white);font-family:'Montserrat',sans-serif;font-size:14px;font-weight:700;outline:none;"
+              oninput="fcCalc()" onchange="fcCalc()">
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="font-size:7.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--sv);width:150px;flex-shrink:0;">Avg Rate of Return</div>
+          <div style="display:flex;align-items:center;flex:1;background:rgba(255,255,255,0.06);border:1px solid rgba(184,196,208,0.18);border-radius:3px;padding:7px 10px;">
+            <input type="number" id="fc-return" placeholder="7" step="0.5"
+              style="flex:1;background:none;border:none;color:var(--white);font-family:'Montserrat',sans-serif;font-size:14px;font-weight:700;outline:none;"
+              oninput="fcCalc()" onchange="fcCalc()">
+            <span style="color:var(--sv);font-size:12px;margin-left:4px;">%</span>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="font-size:7.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--sv);width:150px;flex-shrink:0;">Years</div>
+          <div style="display:flex;align-items:center;flex:1;background:rgba(255,255,255,0.06);border:1px solid rgba(184,196,208,0.18);border-radius:3px;padding:7px 10px;">
+            <input type="number" id="fc-years" placeholder="10"
+              style="flex:1;background:none;border:none;color:var(--white);font-family:'Montserrat',sans-serif;font-size:14px;font-weight:700;outline:none;"
+              oninput="fcCalc()" onchange="fcCalc()">
+            <span style="color:var(--sv);font-size:12px;margin-left:4px;">yrs</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fee inputs -->
+    <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(183,28,28,0.25);border-radius:3px;overflow:hidden;margin-bottom:10px;">
+      <div style="background:rgba(183,28,28,0.35);padding:8px 14px;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#EF9A9A;">Current Fees — Enter What Applies</div>
+      <div style="padding:14px;display:flex;flex-direction:column;gap:8px;">
+
+        <!-- Advisory -->
+        <div style="font-size:7px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(184,196,208,0.4);margin-bottom:2px;">Advisory / Management</div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="font-size:7.5px;color:var(--sv);width:160px;flex-shrink:0;">Advisory / AUM Fee</div>
+          <div style="display:flex;align-items:center;flex:1;background:rgba(255,255,255,0.05);border:1px solid rgba(183,28,28,0.2);border-radius:3px;padding:6px 10px;">
+            <input type="number" id="fc-advisory" placeholder="0" step="0.01"
+              style="flex:1;background:none;border:none;color:#EF9A9A;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;outline:none;"
+              oninput="fcCalc()" onchange="fcCalc()">
+            <span style="color:#EF9A9A;font-size:11px;margin-left:3px;">%</span>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="font-size:7.5px;color:var(--sv);width:160px;flex-shrink:0;">Expense Ratio (fund fees)</div>
+          <div style="display:flex;align-items:center;flex:1;background:rgba(255,255,255,0.05);border:1px solid rgba(183,28,28,0.2);border-radius:3px;padding:6px 10px;">
+            <input type="number" id="fc-expense" placeholder="0" step="0.01"
+              style="flex:1;background:none;border:none;color:#EF9A9A;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;outline:none;"
+              oninput="fcCalc()" onchange="fcCalc()">
+            <span style="color:#EF9A9A;font-size:11px;margin-left:3px;">%</span>
+          </div>
+        </div>
+
+        <!-- VA fees -->
+        <div style="font-size:7px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(184,196,208,0.4);margin-top:6px;margin-bottom:2px;">Variable Annuity Fees</div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="font-size:7.5px;color:var(--sv);width:160px;flex-shrink:0;">M&amp;E (Mortality &amp; Expense)</div>
+          <div style="display:flex;align-items:center;flex:1;background:rgba(255,255,255,0.05);border:1px solid rgba(183,28,28,0.2);border-radius:3px;padding:6px 10px;">
+            <input type="number" id="fc-me" placeholder="0" step="0.01"
+              style="flex:1;background:none;border:none;color:#EF9A9A;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;outline:none;"
+              oninput="fcCalc()" onchange="fcCalc()">
+            <span style="color:#EF9A9A;font-size:11px;margin-left:3px;">%</span>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="font-size:7.5px;color:var(--sv);width:160px;flex-shrink:0;">Admin Fee</div>
+          <div style="display:flex;align-items:center;flex:1;background:rgba(255,255,255,0.05);border:1px solid rgba(183,28,28,0.2);border-radius:3px;padding:6px 10px;">
+            <input type="number" id="fc-admin" placeholder="0" step="0.01"
+              style="flex:1;background:none;border:none;color:#EF9A9A;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;outline:none;"
+              oninput="fcCalc()" onchange="fcCalc()">
+            <span style="color:#EF9A9A;font-size:11px;margin-left:3px;">%</span>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="font-size:7.5px;color:var(--sv);width:160px;flex-shrink:0;">Death Benefit Rider</div>
+          <div style="display:flex;align-items:center;flex:1;background:rgba(255,255,255,0.05);border:1px solid rgba(183,28,28,0.2);border-radius:3px;padding:6px 10px;">
+            <input type="number" id="fc-death" placeholder="0" step="0.01"
+              style="flex:1;background:none;border:none;color:#EF9A9A;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;outline:none;"
+              oninput="fcCalc()" onchange="fcCalc()">
+            <span style="color:#EF9A9A;font-size:11px;margin-left:3px;">%</span>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="font-size:7.5px;color:var(--sv);width:160px;flex-shrink:0;">Income Rider Fee</div>
+          <div style="display:flex;align-items:center;flex:1;background:rgba(255,255,255,0.05);border:1px solid rgba(183,28,28,0.2);border-radius:3px;padding:6px 10px;">
+            <input type="number" id="fc-income-rider" placeholder="0" step="0.01"
+              style="flex:1;background:none;border:none;color:#EF9A9A;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;outline:none;"
+              oninput="fcCalc()" onchange="fcCalc()">
+            <span style="color:#EF9A9A;font-size:11px;margin-left:3px;">%</span>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="font-size:7.5px;color:var(--sv);width:160px;flex-shrink:0;">Other Fee</div>
+          <div style="display:flex;align-items:center;flex:1;background:rgba(255,255,255,0.05);border:1px solid rgba(183,28,28,0.2);border-radius:3px;padding:6px 10px;">
+            <input type="number" id="fc-other" placeholder="0" step="0.01"
+              style="flex:1;background:none;border:none;color:#EF9A9A;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;outline:none;"
+              oninput="fcCalc()" onchange="fcCalc()">
+            <span style="color:#EF9A9A;font-size:11px;margin-left:3px;">%</span>
+          </div>
+        </div>
+
+        <!-- Total fee display -->
+        <div style="margin-top:6px;background:rgba(183,28,28,0.12);border:1px solid rgba(183,28,28,0.3);border-radius:3px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#EF9A9A;">Total Annual Fee</span>
+          <span id="fc-total-fee" style="font-size:22px;font-weight:800;color:#EF5350;">—</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div id="fc-results" style="display:none;">
+
+      <!-- Net return -->
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px;">
+        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(184,196,208,0.1);border-radius:3px;padding:12px;text-align:center;">
+          <div style="font-size:7px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--sv);margin-bottom:6px;">Gross Return</div>
+          <div id="fc-gross-pct" style="font-size:18px;font-weight:800;color:var(--white);"></div>
+          <div style="font-size:7px;color:rgba(184,196,208,0.35);margin-top:3px;">before fees</div>
+        </div>
+        <div style="background:rgba(183,28,28,0.1);border:1px solid rgba(183,28,28,0.25);border-radius:3px;padding:12px;text-align:center;">
+          <div style="font-size:7px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#EF9A9A;margin-bottom:6px;">Net Return</div>
+          <div id="fc-net-pct" style="font-size:18px;font-weight:800;color:#EF9A9A;"></div>
+          <div style="font-size:7px;color:rgba(239,154,154,0.4);margin-top:3px;">after fees</div>
+        </div>
+        <div style="background:rgba(183,28,28,0.15);border:2px solid rgba(183,28,28,0.4);border-radius:3px;padding:12px;text-align:center;">
+          <div style="font-size:7px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#EF9A9A;margin-bottom:6px;">Growth Lost</div>
+          <div id="fc-pct-lost" style="font-size:18px;font-weight:800;color:#EF5350;"></div>
+          <div style="font-size:7px;color:rgba(239,154,154,0.4);margin-top:3px;">goes to fees</div>
+        </div>
+      </div>
+
+      <!-- Annual fee in dollars -->
+      <div style="background:rgba(183,28,28,0.12);border:1px solid rgba(183,28,28,0.3);border-radius:3px;padding:12px 14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;">
+        <div>
+          <div style="font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#EF9A9A;margin-bottom:3px;">Approx. Annual Fee in Dollars</div>
+          <div style="font-size:7.5px;color:rgba(239,154,154,0.5);">Based on current account value</div>
+        </div>
+        <span id="fc-annual-dollar" style="font-size:22px;font-weight:800;color:#EF5350;"></span>
+      </div>
+
+      <!-- Visual bar comparison -->
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(184,196,208,0.1);border-radius:3px;padding:14px;margin-bottom:10px;">
+        <div style="font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--sl);margin-bottom:12px;">Growth Over <span id="fc-yrs-label">—</span> Years</div>
+
+        <div style="margin-bottom:10px;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+            <span style="font-size:8px;color:rgba(184,196,208,0.6);">Without fees</span>
+            <span id="fc-gross-end" style="font-size:12px;font-weight:800;color:var(--white);"></span>
+          </div>
+          <div style="background:rgba(255,255,255,0.06);border-radius:2px;height:16px;overflow:hidden;">
+            <div id="fc-bar-gross" style="height:100%;background:rgba(27,79,138,0.8);transition:width .5s;border-radius:2px;width:100%;"></div>
+          </div>
+        </div>
+
+        <div style="margin-bottom:10px;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+            <span style="font-size:8px;color:#EF9A9A;">After current fees</span>
+            <span id="fc-net-end" style="font-size:12px;font-weight:800;color:#EF9A9A;"></span>
+          </div>
+          <div style="background:rgba(255,255,255,0.06);border-radius:2px;height:16px;overflow:hidden;">
+            <div id="fc-bar-net" style="height:100%;background:rgba(183,28,28,0.6);transition:width .5s;border-radius:2px;"></div>
+          </div>
+        </div>
+
+        <!-- Fee drag callout -->
+        <div style="background:rgba(183,28,28,0.15);border:1px solid rgba(183,28,28,0.3);border-radius:3px;padding:10px 12px;display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:8px;color:rgba(239,154,154,0.8);">Lost to fees over this period</span>
+          <span id="fc-fee-drag" style="font-size:18px;font-weight:800;color:#EF5350;"></span>
+        </div>
+      </div>
+
+      <!-- Fee reduction section -->
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(46,125,50,0.3);border-radius:3px;overflow:hidden;margin-bottom:10px;">
+        <div style="background:rgba(46,125,50,0.3);padding:8px 14px;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#81C784;">With HFG — If We Reduce Your Fees</div>
+        <div style="padding:14px;display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div style="font-size:7.5px;color:rgba(184,196,208,0.55);flex:1;line-height:1.5;">Proposed all-in fee with HFG:</div>
+            <div style="display:flex;align-items:center;background:rgba(255,255,255,0.06);border:1px solid rgba(46,125,50,0.4);border-radius:3px;padding:7px 12px;min-width:100px;">
+              <input type="number" id="fc-proposed-fee" placeholder="0.75" step="0.05"
+                style="flex:1;background:none;border:none;color:#81C784;font-family:'Montserrat',sans-serif;font-size:16px;font-weight:800;outline:none;width:60px;"
+                oninput="fcProposedCalc()" onchange="fcProposedCalc()">
+              <span style="color:#81C784;font-size:12px;margin-left:3px;">%</span>
+            </div>
+          </div>
+
+          <div id="fc-proposed-results" style="display:none;">
+            <div style="background:rgba(46,125,50,0.1);border:1px solid rgba(46,125,50,0.25);border-radius:3px;padding:12px 14px;margin-bottom:8px;">
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+                <span style="font-size:8px;color:#81C784;">With HFG fees</span>
+                <span id="fc-proposed-end" style="font-size:12px;font-weight:800;color:#81C784;"></span>
+              </div>
+              <div style="background:rgba(255,255,255,0.06);border-radius:2px;height:16px;overflow:hidden;">
+                <div id="fc-bar-proposed" style="height:100%;background:rgba(46,125,50,0.7);transition:width .5s;border-radius:2px;"></div>
+              </div>
+            </div>
+            <div style="background:rgba(27,79,138,0.2);border:1px solid rgba(27,79,138,0.35);border-radius:3px;padding:12px 14px;">
+              <div id="fc-verdict" style="font-size:9px;color:rgba(255,255,255,0.75);line-height:1.8;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <button class="score-nav-btn" onclick="fcReset()" style="margin-top:4px;">Reset</button>
+  </div>
+
+  <!-- STRATEGIC TAXES -->
+  <div class="screen" id="screen-tax">
+    <div class="venn-outer"><div class="venn">
+      <div class="vc vc-top t-top vc-inner"><div class="vc-s">N</div><div class="vc-label">Now</div></div>
+      <div class="vc vc-left t-left vc-inner"><div class="vc-s">L</div><div class="vc-label">Later</div></div>
+      <div class="vc vc-right t-right vc-inner"><div class="vc-s">N</div><div class="vc-label">Never</div></div>
+      <div class="venn-center"><div class="venn-center-text">Lifetime<br>Savings</div></div>
+    </div></div>
+    <div class="pillar-strip">
+      <div class="ps-item"><div class="ps-name">Now</div><div class="ps-detail">Taxable accounts &#8212; brokerage, savings, CDs</div></div>
+      <div class="ps-item"><div class="ps-name">Later</div><div class="ps-detail">Tax-deferred accounts &#8212; IRA, 401(k), RMD planning</div></div>
+      <div class="ps-item"><div class="ps-name">Never</div><div class="ps-detail">Tax-free accounts &#8212; Roth IRA, Roth 401(k)</div></div>
+    </div>
+    <button class="score-nav-btn primary" onclick="goTo('taxtool')" style="margin-top:14px;">Show the Tax Story &#8594;</button>
+  </div>
+
+  <!-- TAX TOOL — rebuilt -->
+  <div class="screen score-screen" id="screen-taxtool">
+
+    <div class="score-intro">
+      <div class="score-intro-q">The Tax Story</div>
+      <div class="score-intro-note">Enter their balances, run the numbers, show them what&#39;s at stake.</div>
+    </div>
+
+    <!-- THREE BUBBLES: Now / Later / Never -->
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px;">
+
+      <!-- NOW -->
+      <div style="text-align:center;">
+        <div style="width:80px;height:80px;border-radius:50%;background:rgba(74,144,196,0.6);border:2px solid rgba(184,196,208,0.4);display:flex;align-items:center;justify-content:center;margin:0 auto 8px;flex-direction:column;">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--sl);line-height:1;">N</div>
+        </div>
+        <div style="font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--sl);margin-bottom:2px;">Now</div>
+        <div style="font-size:7px;color:rgba(184,196,208,0.45);margin-bottom:8px;">Taxable</div>
+        <div style="display:flex;align-items:center;background:rgba(255,255,255,0.07);border:1px solid rgba(184,196,208,0.2);border-radius:3px;padding:6px 8px;">
+          <span style="color:var(--sv);font-size:11px;margin-right:3px;">$</span>
+          <input type="number" id="tt-taxable" placeholder="0"
+            style="flex:1;background:none;border:none;color:var(--white);font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;outline:none;min-width:0;"
+            oninput="ttUpdateBubbles()" onchange="ttUpdateBubbles()">
+        </div>
+      </div>
+
+      <!-- LATER -->
+      <div style="text-align:center;">
+        <div style="width:80px;height:80px;border-radius:50%;background:rgba(27,79,138,0.85);border:2px solid rgba(184,196,208,0.4);display:flex;align-items:center;justify-content:center;margin:0 auto 8px;flex-direction:column;">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--sl);line-height:1;">L</div>
+        </div>
+        <div style="font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--sl);margin-bottom:2px;">Later</div>
+        <div style="font-size:7px;color:rgba(184,196,208,0.45);margin-bottom:8px;">Tax-Deferred</div>
+        <div style="display:flex;align-items:center;background:rgba(255,255,255,0.07);border:1px solid rgba(184,196,208,0.2);border-radius:3px;padding:6px 8px;">
+          <span style="color:var(--sv);font-size:11px;margin-right:3px;">$</span>
+          <input type="number" id="tt-deferred" placeholder="0"
+            style="flex:1;background:none;border:none;color:var(--white);font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;outline:none;min-width:0;"
+            oninput="ttUpdateBubbles()" onchange="ttUpdateBubbles()">
+        </div>
+      </div>
+
+      <!-- NEVER -->
+      <div style="text-align:center;">
+        <div style="width:80px;height:80px;border-radius:50%;background:rgba(13,35,64,0.95);border:2px solid rgba(184,196,208,0.4);display:flex;align-items:center;justify-content:center;margin:0 auto 8px;flex-direction:column;">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--sl);line-height:1;">N</div>
+        </div>
+        <div style="font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--sl);margin-bottom:2px;">Never</div>
+        <div style="font-size:7px;color:rgba(184,196,208,0.45);margin-bottom:8px;">Tax-Free</div>
+        <div style="display:flex;align-items:center;background:rgba(255,255,255,0.07);border:1px solid rgba(184,196,208,0.2);border-radius:3px;padding:6px 8px;">
+          <span style="color:var(--sv);font-size:11px;margin-right:3px;">$</span>
+          <input type="number" id="tt-free" placeholder="0"
+            style="flex:1;background:none;border:none;color:var(--white);font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;outline:none;min-width:0;"
+            oninput="ttUpdateBubbles()" onchange="ttUpdateBubbles()">
+        </div>
+      </div>
+
+    </div>
+
+    <!-- TOTAL BAR -->
+    <div id="tt-total-bar" style="display:none;background:rgba(255,255,255,0.04);border:1px solid rgba(184,196,208,0.1);border-radius:3px;padding:10px 14px;margin-bottom:12px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <span style="font-size:8px;color:rgba(184,196,208,0.5);letter-spacing:1px;text-transform:uppercase;">Total Assets</span>
+        <span id="tt-total-amt" style="font-size:16px;font-weight:800;color:var(--white);"></span>
+      </div>
+      <div style="display:flex;gap:2px;height:10px;border-radius:2px;overflow:hidden;">
+        <div id="tt-bar-now"   style="background:rgba(74,144,196,0.7);transition:width .3s;"></div>
+        <div id="tt-bar-later" style="background:rgba(27,79,138,0.9);transition:width .3s;"></div>
+        <div id="tt-bar-never" style="background:rgba(13,35,64,1);border:1px solid rgba(184,196,208,0.3);transition:width .3s;"></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;margin-top:5px;">
+        <span id="tt-pct-now"   style="font-size:7px;color:rgba(74,144,196,0.8);"></span>
+        <span id="tt-pct-later" style="font-size:7px;color:rgba(27,79,138,0.9);filter:brightness(1.6);"></span>
+        <span id="tt-pct-never" style="font-size:7px;color:rgba(184,196,208,0.5);"></span>
+      </div>
+    </div>
+
+    <!-- RMD CALCULATOR -->
+    <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(184,196,208,0.12);border-radius:3px;overflow:hidden;margin-bottom:10px;">
+      <div style="background:var(--blue);padding:8px 14px;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--sl);">RMD Calculator</div>
+      <div style="padding:14px;display:flex;flex-direction:column;gap:9px;">
+
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="font-size:7.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--sv);width:140px;flex-shrink:0;">Years to RMD Age</div>
+          <div style="display:flex;align-items:center;flex:1;background:rgba(255,255,255,0.06);border:1px solid rgba(184,196,208,0.18);border-radius:3px;padding:7px 10px;">
+            <input type="number" id="tt-years" placeholder="10"
+              style="flex:1;background:none;border:none;color:var(--white);font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;outline:none;"
+              oninput="ttCalc()" onchange="ttCalc()">
+            <span style="color:var(--sv);font-size:10px;margin-left:4px;">yrs</span>
+          </div>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="font-size:7.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--sv);width:140px;flex-shrink:0;">Growth Rate</div>
+          <div style="display:flex;align-items:center;flex:1;background:rgba(255,255,255,0.06);border:1px solid rgba(184,196,208,0.18);border-radius:3px;padding:7px 10px;">
+            <input type="number" id="tt-rate" placeholder="8" step="0.5"
+              style="flex:1;background:none;border:none;color:var(--white);font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;outline:none;"
+              oninput="ttCalc()" onchange="ttCalc()">
+            <span style="color:var(--sv);font-size:10px;margin-left:4px;">%</span>
+          </div>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="font-size:7.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--sv);width:140px;flex-shrink:0;">Tax Bracket</div>
+          <div style="flex:1;background:rgba(255,255,255,0.06);border:1px solid rgba(184,196,208,0.18);border-radius:3px;overflow:hidden;">
+            <select id="tt-bracket" onchange="ttCalc()"
+              style="width:100%;background:#0D2340;border:none;color:var(--white);font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;outline:none;padding:7px 10px;cursor:pointer;">
+              <option value="">Select bracket</option>
+              <option value="0.10">10%</option>
+              <option value="0.12">12%</option>
+              <option value="0.22">22%</option>
+              <option value="0.24">24%</option>
+              <option value="0.32">32%</option>
+              <option value="0.35">35%</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="font-size:7.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--sv);width:140px;flex-shrink:0;">Annual SS Benefit</div>
+          <div style="display:flex;align-items:center;flex:1;background:rgba(255,255,255,0.06);border:1px solid rgba(184,196,208,0.18);border-radius:3px;padding:7px 10px;">
+            <span style="color:var(--sv);font-size:11px;margin-right:3px;">$</span>
+            <input type="number" id="tt-ss" placeholder="0"
+              style="flex:1;background:none;border:none;color:var(--white);font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;outline:none;"
+              oninput="ttCalc()" onchange="ttCalc()">
+          </div>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="font-size:7.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--sv);width:140px;flex-shrink:0;">Other Annual Income</div>
+          <div style="display:flex;align-items:center;flex:1;background:rgba(255,255,255,0.06);border:1px solid rgba(184,196,208,0.18);border-radius:3px;padding:7px 10px;">
+            <span style="color:var(--sv);font-size:11px;margin-right:3px;">$</span>
+            <input type="number" id="tt-other" placeholder="0"
+              style="flex:1;background:none;border:none;color:var(--white);font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;outline:none;"
+              oninput="ttCalc()" onchange="ttCalc()">
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- RMD RESULTS -->
+    <div id="tt-results" style="display:none;background:rgba(255,255,255,0.04);border:1px solid rgba(184,196,208,0.15);border-radius:3px;overflow:hidden;margin-bottom:10px;">
+      <div style="background:var(--navy);padding:8px 14px;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--sl);">Without Action</div>
+      <div style="padding:14px;display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:8px;border-bottom:1px solid rgba(184,196,208,0.08);">
+          <span style="font-size:8px;color:rgba(184,196,208,0.5);">Projected Tax-Deferred Balance at RMD Age</span>
+          <span id="tt-proj-bal" style="font-size:18px;font-weight:800;color:var(--white);"></span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:8px;border-bottom:1px solid rgba(184,196,208,0.08);">
+          <span style="font-size:8px;color:rgba(184,196,208,0.5);">First-Year RMD (4%)</span>
+          <span id="tt-rmd" style="font-size:18px;font-weight:800;color:var(--white);"></span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:8px;color:rgba(184,196,208,0.5);">Approx. Tax on First RMD</span>
+          <span id="tt-tax-rmd" style="font-size:18px;font-weight:800;color:#EF9A9A;"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SS ALERT -->
+    <div id="tt-ss-alert" style="display:none;margin-bottom:10px;background:rgba(183,28,28,0.18);border:2px solid #B71C1C;border-radius:3px;padding:14px 16px;">
+      <div style="font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#EF9A9A;margin-bottom:6px;">&#9888; Social Security Tax Alert</div>
+      <div id="tt-ss-alert-text" style="font-size:9px;font-weight:600;color:#EF9A9A;line-height:1.7;"></div>
+    </div>
+
+    <!-- REPOSITIONING -->
+    <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(184,196,208,0.1);border-radius:3px;overflow:hidden;margin-bottom:10px;">
+      <div style="background:rgba(46,125,50,0.3);padding:8px 14px;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#81C784;">With HFG — Repositioning Strategy</div>
+      <div style="padding:14px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+          <div style="font-size:8px;color:rgba(184,196,208,0.55);flex:1;line-height:1.5;">If we reposition this amount out of tax-deferred today:</div>
+          <div style="display:flex;align-items:center;background:rgba(255,255,255,0.08);border:1px solid rgba(46,125,50,0.4);border-radius:3px;padding:7px 12px;min-width:120px;">
+            <span style="color:var(--sv);font-size:12px;margin-right:4px;">$</span>
+            <input type="number" id="tt-reposition" placeholder="0"
+              style="flex:1;background:none;border:none;color:#81C784;font-family:'Montserrat',sans-serif;font-size:16px;font-weight:800;outline:none;width:70px;"
+              oninput="ttShowReposition()" onchange="ttShowReposition()">
+          </div>
+        </div>
+        <div id="tt-reposition-box" style="display:none;background:rgba(46,125,50,0.1);border:1px solid rgba(46,125,50,0.3);border-radius:3px;padding:12px 14px;">
+          <div style="font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#81C784;margin-bottom:10px;">New Projected Outcome</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:7px;border-bottom:1px solid rgba(46,125,50,0.2);margin-bottom:7px;">
+            <span style="font-size:8px;color:rgba(255,255,255,0.5);">New Tax-Deferred at RMD Age</span>
+            <span id="tt-new-bal" style="font-size:15px;font-weight:800;color:#81C784;"></span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:7px;border-bottom:1px solid rgba(46,125,50,0.2);margin-bottom:7px;">
+            <span style="font-size:8px;color:rgba(255,255,255,0.5);">New First-Year RMD</span>
+            <span id="tt-new-rmd" style="font-size:15px;font-weight:800;color:#81C784;"></span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:8px;color:rgba(255,255,255,0.5);">RMD Reduction</span>
+            <span id="tt-rmd-reduction" style="font-size:15px;font-weight:800;color:#81C784;"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BENEFICIARY / INHERITANCE -->
+    <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(184,196,208,0.1);border-radius:3px;overflow:hidden;margin-bottom:10px;">
+      <div style="background:rgba(183,28,28,0.25);padding:8px 14px;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#EF9A9A;">What Happens If They Never Reposition?</div>
+      <div style="padding:14px;display:flex;flex-direction:column;gap:9px;">
+        <div style="font-size:8.5px;color:rgba(184,196,208,0.5);line-height:1.6;">If they leave tax-deferred money to their children, the kids inherit the tax bill. Show them what that looks like.</div>
+
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="font-size:7.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--sv);width:140px;flex-shrink:0;">Amount Left to Kids</div>
+          <div style="display:flex;align-items:center;flex:1;background:rgba(255,255,255,0.06);border:1px solid rgba(184,196,208,0.18);border-radius:3px;padding:7px 10px;">
+            <span style="color:var(--sv);font-size:11px;margin-right:3px;">$</span>
+            <input type="number" id="tt-inherit" placeholder="0"
+              style="flex:1;background:none;border:none;color:var(--white);font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;outline:none;"
+              oninput="ttInheritCalc()" onchange="ttInheritCalc()">
+          </div>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="font-size:7.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--sv);width:140px;flex-shrink:0;">Beneficiary Tax Bracket</div>
+          <div style="flex:1;background:rgba(255,255,255,0.06);border:1px solid rgba(184,196,208,0.18);border-radius:3px;overflow:hidden;">
+            <select id="tt-heir-bracket" onchange="ttInheritCalc()"
+              style="width:100%;background:#0D2340;border:none;color:var(--white);font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;outline:none;padding:7px 10px;cursor:pointer;">
+              <option value="">Select bracket</option>
+              <option value="0.10">10%</option>
+              <option value="0.12">12%</option>
+              <option value="0.22">22%</option>
+              <option value="0.24">24%</option>
+              <option value="0.32">32%</option>
+              <option value="0.35">35%</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="tt-inherit-results" style="display:none;margin-top:4px;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+            <div style="background:rgba(183,28,28,0.15);border:2px solid #B71C1C;border-radius:3px;padding:12px;text-align:center;">
+              <div style="font-size:7.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#EF9A9A;margin-bottom:6px;">Goes to the IRS</div>
+              <div id="tt-tax-hit" style="font-size:22px;font-weight:800;color:#EF9A9A;"></div>
+            </div>
+            <div style="background:rgba(46,125,50,0.12);border:2px solid rgba(46,125,50,0.4);border-radius:3px;padding:12px;text-align:center;">
+              <div style="font-size:7.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#81C784;margin-bottom:6px;">Kids Receive</div>
+              <div id="tt-heir-receive" style="font-size:22px;font-weight:800;color:#81C784;"></div>
+            </div>
+          </div>
+          <div style="margin-top:8px;font-size:7.5px;color:rgba(184,196,208,0.4);text-align:center;line-height:1.5;">Simplified estimate. Inherited IRAs require withdrawals within 10 years under current law. Consult a tax professional.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <button class="score-nav-btn primary" onclick="ttCalc()" style="margin-top:4px;">Calculate &#8594;</button>
+    <button class="score-nav-btn" onclick="ttReset()" style="margin-top:8px;">Reset</button>
+  </div>
+
+  <button class="back-btn" id="back-btn" onclick="goHome()">&#8592; Back to 3S Process</button>
+
+  <div class="footer"><span>Safe.</span> Smart. <span>Simple.</span></div>
+</div>
+
+<script>
+  const scores = {income:null,growth:null,tax:null};
+  const pillars = {
+    income:{name:'Safe Income',      action:'Review income sources and close the monthly gap'},
+    growth:{name:'Smart Growth',     action:'Realign investments to match your actual risk comfort'},
+    tax:   {name:'Simple Taxes',  action:'Simplify your tax strategy and keep more of what you earn'}
+  };
+  const screens = {
+    master:{id:'screen-master',title:'THE <span>3S</span> PROCESS',  sub:'Tap any circle to explore that pillar',label:''},
+    score: {id:'screen-score', title:'CONFIDENCE <span>SCORE</span>',sub:'Rate each area together — honestly',   label:'Confidence Score'},
+    income:{id:'screen-income',title:'SAFE <span>INCOME</span>',     sub:'The three sources of guaranteed retirement income',label:'Safe Income'},
+    incometool:{id:'screen-incometool',title:'SAFE <span>INCOME</span>',sub:'Build your guaranteed income plan and close the gap',label:'Income Plan'},
+    growth:{id:'screen-growth',title:'SMART <span>GROWTH</span>',    sub:'Your three-bucket investment allocation',label:'Smart Growth'},
+    house: {id:'screen-house',title:'SMART <span>GROWTH</span>',sub:'Build Your Financial House — Protected · Income · Market',label:'Financial House'},
+    walls: {id:'screen-walls',title:'SMART <span>GROWTH</span>',sub:'The Income Bucket — Your Walls',label:'Walls'},
+    wallscalc:{id:'screen-wallscalc',title:'SMART <span>GROWTH</span>',sub:'See how much more your fixed income could be earning',label:'Walls Upgrade'},
+    foundation:{id:'screen-foundation',title:'SMART <span>GROWTH</span>',sub:'The Protected Bucket — Your Foundation',label:'Foundation'},
+    fiacalc:{id:'screen-fiacalc',title:'SMART <span>GROWTH</span>',sub:'Fixed Index Annuity — None of the losses, some of the upside',label:'FIA Illustration'},
+    roof:{id:'screen-roof',title:'SMART <span>GROWTH</span>',sub:'The Market Bucket — Your Roof',label:'Roof'},
+    feecalc:{id:'screen-feecalc',title:'SMART <span>GROWTH</span>',sub:'The Fee Drag Calculator — what fees are really costing them',label:'Fee Analysis'},
+    tax:   {id:'screen-tax',   title:'SIMPLE <span>TAXES</span>', sub:'Your three tax buckets — Now, Later, and Never',label:'Simple Taxes'},
+    taxtool:{id:'screen-taxtool',title:'SIMPLE <span>TAXES</span>',sub:'Show the tax story — what happens without action',label:'Tax Story'},
+  };
+  let current='master';
+
+  function goTo(key){
+    document.querySelectorAll('.screen').forEach(el=>el.classList.remove('active'));
+    document.getElementById(screens[key].id).classList.add('active');
+    document.getElementById('hdr-title').innerHTML=screens[key].title;
+    document.getElementById('hdr-sub').textContent=screens[key].sub;
+    const bc=document.getElementById('bc');
+    document.getElementById('bc-label').textContent=screens[key].label;
+    bc.classList.toggle('visible',key!=='master');
+    document.getElementById('back-btn').classList.toggle('visible',key!=='master');
+    current=key;
+  }
+  function goHome(){goTo('master');}
+
+  function buildNumbers(pillar){
+    const container=document.getElementById('nums-'+pillar);
+    container.innerHTML='';
+    for(let n=1;n<=10;n++){
+      const btn=document.createElement('button');
+      btn.className='score-btn'+(n===7?' disabled':'');
+      btn.textContent=n;
+      btn.dataset.val=n;
+      if(n!==7) btn.addEventListener('click',()=>selectScore(pillar,n));
+      container.appendChild(btn);
+    }
+  }
+
+  function selectScore(pillar,val){
+    scores[pillar]=val;
+    const isHigh=val>=8;
+    document.querySelectorAll('#nums-'+pillar+' .score-btn').forEach(btn=>{
+      btn.classList.remove('selected-high','selected-low');
+      if(parseInt(btn.dataset.val)===val) btn.classList.add(isHigh?'selected-high':'selected-low');
+    });
+    const result=document.getElementById('result-'+pillar);
+    result.className='score-result visible '+(isHigh?'result-high':'result-low');
+    result.textContent=isHigh?'&#10003; Confident':'&#9873; Needs Attention';
+    document.getElementById('sp-'+pillar).classList.add('scored');
+    const badge=document.getElementById('badge-'+pillar);
+    badge.textContent=val;
+    badge.className='vc-score-badge visible '+(isHigh?'badge-high':'badge-low');
+    if(scores.income!==null&&scores.growth!==null&&scores.tax!==null) buildAgenda();
+  }
+
+  function buildAgenda(){
+    const ranked=Object.keys(scores).sort((a,b)=>scores[a]-scores[b]);
+    const wrap=document.getElementById('agenda-wrap');
+    const items=document.getElementById('agenda-items');
+    items.innerHTML='';
+    ranked.forEach((key,i)=>{
+      const score=scores[key];
+      const isHigh=score>=8;
+      const rankClass='rank-'+(i+1);
+      const scoreColor=isHigh?'#81C784':'#EF9A9A';
+      const div=document.createElement('div');
+      div.className='agenda-item';
+      div.innerHTML=`
+        <div class="agenda-rank ${rankClass}">${i+1}</div>
+        <div style="flex:1">
+          <div class="agenda-pillar-name">${pillars[key].name}</div>
+          <span class="agenda-action">${pillars[key].action}</span>
+        </div>
+        <div class="agenda-score-display" style="color:${scoreColor}">${score}</div>
+        ${i===0?'<span class="agenda-start">Start Here</span>':''}
+      `;
+      items.appendChild(div);
+    });
+    wrap.classList.add('visible');
+  }
+
+  function resetScores(){
+    ['income','growth','tax'].forEach(p=>{
+      scores[p]=null;
+      buildNumbers(p);
+      const r=document.getElementById('result-'+p);
+      r.className='score-result';r.textContent='';
+      document.getElementById('sp-'+p).classList.remove('scored');
+      const b=document.getElementById('badge-'+p);
+      b.className='vc-score-badge';b.textContent='';
+    });
+    document.getElementById('agenda-wrap').classList.remove('visible');
+    document.getElementById('agenda-items').innerHTML='';
+  }
+
+  buildNumbers('income');
+  buildNumbers('growth');
+  buildNumbers('tax');
+
+  // ── Financial House ──
+  let fhWantPct = 50;
+
+  function fhSliderMove(val){
+    fhWantPct = parseInt(val);
+    document.getElementById('fh-want-pct').textContent = val + '%';
+    fhCalc();
+  }
+  // init slider display
+  document.getElementById('fh-want-pct').textContent = '50%';
+
+  function fhCalc(){
+    const total    = parseFloat(document.getElementById('fh-total').value)    || 0;
+    const protect  = parseFloat(document.getElementById('fh-protected').value) || 0;
+    const income   = parseFloat(document.getElementById('fh-income').value)    || 0;
+    const market   = parseFloat(document.getElementById('fh-market').value)    || 0;
+    const inputSum = protect + income + market;
+    const base     = total > 0 ? total : (inputSum > 0 ? inputSum : 0);
+
+    // Percentages
+    const protPct = base > 0 ? Math.round((protect / base) * 100) : 0;
+    const incPct  = base > 0 ? Math.round((income  / base) * 100) : 0;
+    const mktPct  = base > 0 ? Math.round((market  / base) * 100) : 0;
+
+    document.getElementById('fh-prot-pct').textContent = protPct + '%';
+    document.getElementById('fh-inc-pct').textContent  = incPct  + '%';
+    document.getElementById('fh-mkt-pct').textContent  = mktPct  + '%';
+
+    // Bar
+    document.getElementById('fh-bar-prot').style.width = protPct + '%';
+    document.getElementById('fh-bar-inc').style.width  = incPct  + '%';
+    document.getElementById('fh-bar-mkt').style.width  = mktPct  + '%';
+    document.getElementById('fh-bar-prot-lbl').textContent = protPct > 8 ? protPct + '%' : '';
+    document.getElementById('fh-bar-inc-lbl').textContent  = incPct  > 8 ? incPct  + '%' : '';
+    document.getElementById('fh-bar-mkt-lbl').textContent  = mktPct  > 8 ? mktPct  + '%' : '';
+
+    // Safe = Protected only (Income bucket carries some market risk)
+    const currentSafePct = protPct;
+    const wantedSafePct  = fhWantPct;
+    const gap = wantedSafePct - currentSafePct;
+    const gapDollars = base > 0 ? Math.round((Math.abs(gap) / 100) * base) : 0;
+    const fmt = (n) => '$' + n.toLocaleString();
+
+    const results   = document.getElementById('fh-results');
+    const gapBox    = document.getElementById('fh-gap-box');
+    const alignBox  = document.getElementById('fh-aligned-box');
+
+    if(base > 0){
+      results.classList.add('visible');
+      if(gap > 2){
+        gapBox.style.display   = 'block';
+        alignBox.style.display = 'none';
+        document.getElementById('fh-gap-text').innerHTML =
+          'They want <strong>' + wantedSafePct + '%</strong> safe but currently only <strong>' + currentSafePct + '%</strong> is in Protected + Income positions.<br>' +
+          'That is a gap of approximately <strong>' + fmt(gapDollars) + '</strong> that needs to move to safety.';
+      } else if(gap < -2){
+        gapBox.style.display   = 'none';
+        alignBox.style.display = 'block';
+        document.getElementById('fh-aligned-box').querySelector('div:last-child').textContent =
+          'Current safe allocation (' + currentSafePct + '%) exceeds their goal of ' + wantedSafePct + '%. They may have room to pursue more growth.';
+      } else {
+        gapBox.style.display   = 'none';
+        alignBox.style.display = 'block';
+      }
+    }
+  }
+
+  function fhReset(){
+    document.getElementById('fh-total').value     = '';
+    document.getElementById('fh-protected').value = '';
+    document.getElementById('fh-income').value    = '';
+    document.getElementById('fh-market').value    = '';
+    document.getElementById('fh-want-slider').value = 50;
+    fhWantPct = 50;
+    document.getElementById('fh-want-pct').textContent = '50%';
+    ['fh-prot-pct','fh-inc-pct','fh-mkt-pct'].forEach(id => document.getElementById(id).textContent = '--%');
+    ['fh-bar-prot','fh-bar-inc','fh-bar-mkt'].forEach(id => document.getElementById(id).style.width = '0%');
+    document.getElementById('fh-results').classList.remove('visible');
+    document.getElementById('fh-gap-box').style.display    = 'none';
+    document.getElementById('fh-aligned-box').style.display = 'none';
+  }
+  // ── Income Tool ──
+  function itCalc(){
+    const goal    = parseFloat(document.getElementById('it-goal').value)    || 0;
+    const ss1     = parseFloat(document.getElementById('it-ss1').value)     || 0;
+    const ss2     = parseFloat(document.getElementById('it-ss2').value)     || 0;
+    const pension = parseFloat(document.getElementById('it-pension').value) || 0;
+    const other   = parseFloat(document.getElementById('it-other').value)   || 0;
+    const rate    = parseFloat(document.getElementById('it-rate').value)    || 0;
+
+    const total = ss1 + ss2 + pension + other;
+    const fmt = (n) => '$' + Math.round(n).toLocaleString();
+
+    document.getElementById('it-total-display').textContent = fmt(total);
+
+    if(goal <= 0) return;
+
+    const gap = goal - total;
+    const results   = document.getElementById('it-results');
+    const gapBox    = document.getElementById('it-gap-box');
+    const surplusBox= document.getElementById('it-surplus-box');
+    const fillWrap  = document.getElementById('it-fill-wrap');
+
+    results.classList.add('visible');
+
+    if(gap > 0){
+      // There's a gap
+      gapBox.style.display    = 'block';
+      surplusBox.style.display= 'none';
+      fillWrap.style.display  = 'block';
+      document.getElementById('it-gap-amount').textContent = fmt(gap);
+
+      // Segment calculation
+      if(rate > 0){
+        const annualGap     = gap * 12;
+        const assetsNeeded  = annualGap / (rate / 100);
+        document.getElementById('it-segment-amount').textContent = fmt(assetsNeeded);
+        document.getElementById('it-segment-detail').innerHTML =
+          'At a <strong>' + rate + '%</strong> annual withdrawal rate, <strong>' + fmt(assetsNeeded) +
+          '</strong> of their assets would need to be segmented into a dedicated income position to generate ' +
+          fmt(gap) + '/mo (' + fmt(annualGap) + '/yr) consistently — without relying on market performance.';
+      } else {
+        document.getElementById('it-segment-amount').textContent = '--';
+        document.getElementById('it-segment-detail').textContent = 'Enter a withdrawal rate above to calculate.';
+      }
+    } else {
+      // Covered or surplus
+      gapBox.style.display    = 'none';
+      surplusBox.style.display= 'block';
+      fillWrap.style.display  = 'none';
+      const surplus = Math.abs(gap);
+      document.getElementById('it-surplus-text').innerHTML =
+        'Guaranteed income of <strong>' + fmt(total) + '/mo</strong> meets their goal of <strong>' + fmt(goal) + '/mo</strong>.' +
+        (surplus > 0 ? ' They have a surplus of <strong>' + fmt(surplus) + '/mo</strong> — excess that could be redirected to growth or legacy.' : '');
+    }
+  }
+
+  function itReset(){
+    ['it-goal','it-ss1','it-ss2','it-pension','it-other','it-rate'].forEach(id=>{
+      document.getElementById(id).value='';
+    });
+    document.getElementById('it-total-display').textContent='$0';
+    document.getElementById('it-results').classList.remove('visible');
+    document.getElementById('it-gap-box').style.display='none';
+    document.getElementById('it-surplus-box').style.display='none';
+    document.getElementById('it-fill-wrap').style.display='none';
+    document.getElementById('it-segment-amount').textContent='';
+    document.getElementById('it-segment-detail').textContent='';
+  }
+  // ── Tax Tool ──
+
+  function ttUpdateBubbles(){
+    const now    = parseFloat(document.getElementById('tt-taxable').value) || 0;
+    const later  = parseFloat(document.getElementById('tt-deferred').value) || 0;
+    const never  = parseFloat(document.getElementById('tt-free').value) || 0;
+    const total  = now + later + never;
+    const fmt    = (n) => '$' + Math.round(n).toLocaleString();
+    const bar    = document.getElementById('tt-total-bar');
+    if(total > 0){
+      bar.style.display = 'block';
+      document.getElementById('tt-total-amt').textContent = fmt(total);
+      document.getElementById('tt-bar-now').style.width   = (now/total*100)   + '%';
+      document.getElementById('tt-bar-later').style.width = (later/total*100) + '%';
+      document.getElementById('tt-bar-never').style.width = (never/total*100) + '%';
+      document.getElementById('tt-pct-now').textContent   = 'Now ' + Math.round(now/total*100) + '%';
+      document.getElementById('tt-pct-later').textContent = 'Later ' + Math.round(later/total*100) + '%';
+      document.getElementById('tt-pct-never').textContent = 'Never ' + Math.round(never/total*100) + '%';
+    } else {
+      bar.style.display = 'none';
+    }
+    // auto-run RMD calc if we have years and rate
+    const years = parseFloat(document.getElementById('tt-years').value) || 0;
+    if(later > 0 && years > 0) ttCalc();
+  }
+
+  function ttCalc(){
+    const deferred = parseFloat(document.getElementById('tt-deferred').value) || 0;
+    const years    = parseFloat(document.getElementById('tt-years').value)    || 0;
+    const rate     = parseFloat(document.getElementById('tt-rate').value)     || 8;
+    const bracket  = parseFloat(document.getElementById('tt-bracket').value)  || 0;
+    const ss       = parseFloat(document.getElementById('tt-ss').value)       || 0;
+    const other    = parseFloat(document.getElementById('tt-other').value)    || 0;
+    const fmt      = (n) => '$' + Math.round(n).toLocaleString();
+
+    if(deferred <= 0 || years <= 0) return;
+
+    const projBal  = deferred * Math.pow(1 + rate/100, years);
+    const rmd      = projBal * 0.04;
+    const taxOnRmd = bracket > 0 ? rmd * bracket : 0;
+
+    document.getElementById('tt-proj-bal').textContent = fmt(projBal);
+    document.getElementById('tt-rmd').textContent      = fmt(rmd) + ' / yr';
+    document.getElementById('tt-tax-rmd').textContent  = bracket > 0 ? fmt(taxOnRmd) + ' / yr' : '—';
+    document.getElementById('tt-results').style.display = 'block';
+
+    // SS Alert — provisional = RMD + half SS + other income
+    const provisional = rmd + (ss * 0.5) + other;
+    const ssEl  = document.getElementById('tt-ss-alert');
+    const ssTxt = document.getElementById('tt-ss-alert-text');
+    if(ss > 0 && rmd > 0){
+      if(provisional >= 34000){
+        ssEl.style.display = 'block';
+        ssTxt.innerHTML = 'SS is in danger of being taxed at <strong>85%</strong>. ' +
+          'Provisional income (RMD + ½SS + other) = <strong>' + fmt(provisional) + '</strong> — above the $34,000 threshold. ' +
+          'Up to <strong>' + fmt(ss * 0.85) + '</strong>/yr of their SS benefit could become taxable.';
+      } else if(provisional >= 25000){
+        ssEl.style.display = 'block';
+        ssTxt.innerHTML = 'SS is in danger of being taxed at <strong>50%</strong>. ' +
+          'Provisional income (RMD + ½SS + other) = <strong>' + fmt(provisional) + '</strong> — above the $25,000 threshold. ' +
+          'Up to <strong>' + fmt(ss * 0.50) + '</strong>/yr of their SS benefit could become taxable.';
+      } else {
+        ssEl.style.display = 'none';
+      }
+    } else {
+      ssEl.style.display = 'none';
+    }
+
+    ttShowReposition();
+  }
+
+  function ttShowReposition(){
+    const deferred   = parseFloat(document.getElementById('tt-deferred').value)   || 0;
+    const reposition = parseFloat(document.getElementById('tt-reposition').value) || 0;
+    const years      = parseFloat(document.getElementById('tt-years').value)      || 0;
+    const rate       = parseFloat(document.getElementById('tt-rate').value)       || 8;
+    const fmt        = (n) => '$' + Math.round(n).toLocaleString();
+    const box        = document.getElementById('tt-reposition-box');
+    if(reposition <= 0 || deferred <= 0 || years <= 0){ box.style.display='none'; return; }
+    const newDef  = Math.max(0, deferred - reposition);
+    const origBal = deferred * Math.pow(1 + rate/100, years);
+    const newBal  = newDef   * Math.pow(1 + rate/100, years);
+    const origRmd = origBal * 0.04;
+    const newRmd  = newBal  * 0.04;
+    document.getElementById('tt-new-bal').textContent       = fmt(newBal);
+    document.getElementById('tt-new-rmd').textContent       = fmt(newRmd) + ' / yr';
+    document.getElementById('tt-rmd-reduction').textContent = '↓ ' + fmt(origRmd - newRmd) + ' / yr less';
+    box.style.display = 'block';
+  }
+
+  function ttInheritCalc(){
+    const amount  = parseFloat(document.getElementById('tt-inherit').value)      || 0;
+    const bracket = parseFloat(document.getElementById('tt-heir-bracket').value) || 0;
+    const res     = document.getElementById('tt-inherit-results');
+    const fmt     = (n) => '$' + Math.round(n).toLocaleString();
+    if(amount > 0 && bracket > 0){
+      const taxHit = amount * bracket;
+      const netAmt = amount - taxHit;
+      document.getElementById('tt-tax-hit').textContent    = fmt(taxHit);
+      document.getElementById('tt-heir-receive').textContent = fmt(netAmt);
+      res.style.display = 'block';
+    } else {
+      res.style.display = 'none';
+    }
+  }
+
+  function ttReset(){
+    ['tt-taxable','tt-deferred','tt-free','tt-years','tt-rate','tt-ss','tt-other',
+     'tt-reposition','tt-inherit'].forEach(id => {
+      document.getElementById(id).value = '';
+    });
+    document.getElementById('tt-bracket').value      = '';
+    document.getElementById('tt-heir-bracket').value = '';
+    document.getElementById('tt-total-bar').style.display      = 'none';
+    document.getElementById('tt-results').style.display        = 'none';
+    document.getElementById('tt-ss-alert').style.display       = 'none';
+    document.getElementById('tt-ss-alert-text').innerHTML      = '';
+    document.getElementById('tt-reposition-box').style.display = 'none';
+    document.getElementById('tt-inherit-results').style.display= 'none';
+    document.getElementById('tt-proj-bal').textContent  = '';
+    document.getElementById('tt-rmd').textContent       = '';
+    document.getElementById('tt-tax-rmd').textContent   = '';
+  }
+  // ── FIA Calculator ──
+  const SP500 = {
+    1999:21.0, 2000:-9.1,  2001:-11.9, 2002:-22.1, 2003:28.7,
+    2004:10.9, 2005:4.9,   2006:15.8,  2007:5.5,   2008:-37.0,
+    2009:26.5, 2010:15.1,  2011:2.1,   2012:16.0,  2013:32.4,
+    2014:13.7, 2015:1.4,   2016:12.0,  2017:21.8,  2018:-4.4,
+    2019:31.5, 2020:18.4,  2021:28.7,  2022:-18.1, 2023:26.3,
+    2024:23.3
+  };
+
+  let fiaStartYear = 1999, fiaEndYear = 2024;
+
+  function fiaInit(){
+    // Populate year dropdowns
+    const sy = document.getElementById('fia-start-yr');
+    const ey = document.getElementById('fia-end-yr');
+    sy.innerHTML=''; ey.innerHTML='';
+    for(let y=1999;y<=2024;y++){
+      sy.innerHTML += `<option value="${y}" ${y===1999?'selected':''}>${y}</option>`;
+      ey.innerHTML += `<option value="${y}" ${y===2024?'selected':''}>${y}</option>`;
+    }
+    // Set default values so calc runs immediately
+    document.getElementById('fia-cap').value    = '10';
+    document.getElementById('fia-amount').value = '100000';
+    document.getElementById('fia-fee').value    = '0';
+    // Draw concept chart after a brief layout delay
+    setTimeout(fiaDrawConcept, 80);
+    // Run calc with defaults
+    setTimeout(fiaCalc, 120);
+  }
+
+  function fiaDrawConcept(){
+    const canvas = document.getElementById('fia-concept-chart');
+    if(!canvas) return;
+    const dpr = window.devicePixelRatio || 1;
+    const W = canvas.offsetWidth;
+    const H = 160;
+    if(W === 0){ setTimeout(fiaDrawConcept, 100); return; }
+    canvas.width  = W * dpr;
+    canvas.height = H * dpr;
+    canvas.style.width  = W + 'px';
+    canvas.style.height = H + 'px';
+    const ctx = canvas.getContext('2d');
+    ctx.scale(dpr, dpr);
+    ctx.clearRect(0,0,W,H);
+
+    // M-shaped market: up big, down, up, down big, up, down — ends below start
+    // FIA: captures ups (capped), holds flat on downs — ends above S&P
+    // Using cumulative % change steps — designed to match the hand-drawn concept
+    const years = ['Y1','Y2','Y3','Y4','Y5','Y6','Y7','Y8','Y9','Y10','Y11','Y12'];
+    const spAnnual  = [ 30, -22,  28, -38,  32,  26, -18,  34];
+    const capRate   = 16;
+    const fiaAnnual = spAnnual.map(r => r <= 0 ? 0 : Math.min(r, capRate));
+
+    const n = spAnnual.length + 1;
+    const padX = 16, padY = 18;
+    const stepX = (W - padX*2) / (n-1);
+
+    // Build cumulative value paths (starting at 0 % basis)
+    const spPath = [0], fiaPath = [0];
+    let sv = 0, fv = 0;
+    for(let i=0;i<spAnnual.length;i++){
+      sv += spAnnual[i];
+      fv += fiaAnnual[i];
+      spPath.push(sv);
+      fiaPath.push(fv);
+    }
+
+    const allVals = [...spPath, ...fiaPath];
+    const maxV = Math.max(...allVals) + 10;
+    const minV = Math.min(...allVals) - 10;
+    const rng = maxV - minV;
+    const toY = v => padY + (1 - (v - minV)/rng) * (H - padY*2);
+
+    // Fill area below zero — red danger zone
+    ctx.fillStyle = 'rgba(183,28,28,0.06)';
+    ctx.fillRect(padX, toY(0), W - padX*2, H - padY - toY(0));
+
+    // Zero line
+    ctx.strokeStyle='rgba(184,196,208,0.2)';
+    ctx.lineWidth=1;
+    ctx.setLineDash([5,5]);
+    ctx.beginPath();
+    ctx.moveTo(padX, toY(0));
+    ctx.lineTo(W-padX, toY(0));
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Zero label
+    ctx.fillStyle='rgba(184,196,208,0.3)';
+    ctx.font=`${9*dpr/dpr}px Montserrat,sans-serif`;
+    ctx.fillText('0%', 0, toY(0)+4);
+
+    // S&P line — red, jagged
+    ctx.strokeStyle='#EF5350';
+    ctx.lineWidth=2.5;
+    ctx.beginPath();
+    spPath.forEach((v,i)=>{
+      const x = padX + i*stepX;
+      i===0 ? ctx.moveTo(x,toY(v)) : ctx.lineTo(x,toY(v));
+    });
+    ctx.stroke();
+
+    // FIA line — green staircase (flat then step up)
+    ctx.strokeStyle='#66BB6A';
+    ctx.lineWidth=3;
+    ctx.beginPath();
+    fiaPath.forEach((v,i)=>{
+      const x = padX + i*stepX;
+      if(i===0){ ctx.moveTo(x,toY(v)); return; }
+      ctx.lineTo(x, toY(fiaPath[i-1])); // flat
+      ctx.lineTo(x, toY(v));             // step
+    });
+    ctx.stroke();
+
+    // End value callouts
+    const lastSP  = spPath[spPath.length-1];
+    const lastFIA = fiaPath[fiaPath.length-1];
+    const endX = padX + (n-1)*stepX;
+    ctx.font=`bold ${10}px Montserrat,sans-serif`;
+    ctx.fillStyle='#EF9A9A';
+    ctx.fillText((lastSP>=0?'+':'')+lastSP+'%', endX-32, toY(lastSP)-8);
+    ctx.fillStyle='#81C784';
+    ctx.fillText('+'+ lastFIA+'%', endX-26, toY(lastFIA)-8);
+  }
+
+  function fiaSetPeriod(start, end, btn){
+    fiaStartYear = start; fiaEndYear = end;
+    document.getElementById('fia-start-yr').value = start;
+    document.getElementById('fia-end-yr').value   = end;
+    document.querySelectorAll('.fia-period-btn').forEach(b=>{
+      b.style.background = 'rgba(255,255,255,0.04)';
+      b.style.border     = '1px solid rgba(184,196,208,0.15)';
+      b.style.color      = 'var(--sv)';
+    });
+    btn.style.background = 'rgba(27,79,138,0.5)';
+    btn.style.border     = '1px solid rgba(27,79,138,0.6)';
+    btn.style.color      = 'var(--white)';
+    fiaCalc();
+  }
+
+  function fiaCustomPeriod(){
+    fiaStartYear = parseInt(document.getElementById('fia-start-yr').value);
+    fiaEndYear   = parseInt(document.getElementById('fia-end-yr').value);
+    // Deactivate preset buttons
+    document.querySelectorAll('.fia-period-btn').forEach(b=>{
+      b.style.background = 'rgba(255,255,255,0.04)';
+      b.style.border     = '1px solid rgba(184,196,208,0.15)';
+      b.style.color      = 'var(--sv)';
+    });
+    fiaCalc();
+  }
+
+  function fiaCalc(){
+    const cap    = parseFloat(document.getElementById('fia-cap').value);
+    const amount = parseFloat(document.getElementById('fia-amount').value) || 100000;
+    const fee    = parseFloat(document.getElementById('fia-fee').value)    || 0;
+    if(!cap || cap <= 0) return;
+    if(fiaStartYear > fiaEndYear) return;
+
+    const fmt = n => '$' + Math.round(n).toLocaleString();
+    const fmtPct = n => (n >= 0 ? '+' : '') + n.toFixed(1) + '%';
+
+    let spVal = amount, fiaVal = amount;
+    let tableHTML = '';
+    const years = [];
+    for(let y = fiaStartYear; y <= fiaEndYear; y++) years.push(y);
+
+    years.forEach(y => {
+      const spRaw = SP500[y] || 0;
+      const spNet = spRaw - fee;  // fee drag on S&P
+      const fiaR  = spRaw <= 0 ? 0 : Math.min(spRaw, cap);
+
+      spVal  = spVal  * (1 + spNet/100);
+      fiaVal = fiaVal * (1 + fiaR/100);
+
+      const spColor  = spRaw >= 0 ? '#EF9A9A' : '#EF5350';
+      const fiaColor = fiaR  >  0 ? '#81C784' : 'rgba(184,196,208,0.4)';
+      const rowBg    = spRaw < 0  ? 'rgba(183,28,28,0.07)' : 'transparent';
+
+      tableHTML += `
+        <div style="display:grid;grid-template-columns:40px 1fr 1fr 1fr 1fr;gap:4px;padding:6px 14px;border-bottom:1px solid rgba(184,196,208,0.05);background:${rowBg};">
+          <span style="font-size:8.5px;font-weight:700;color:rgba(184,196,208,0.5);">${y}</span>
+          <span style="font-size:9px;font-weight:800;color:${spColor};text-align:right;">${fmtPct(spRaw)}</span>
+          <span style="font-size:8px;color:${spColor};text-align:right;opacity:0.8;">${fmt(spVal)}</span>
+          <span style="font-size:9px;font-weight:800;color:${fiaColor};text-align:right;">${fmtPct(fiaR)}</span>
+          <span style="font-size:8px;color:${fiaColor};text-align:right;opacity:0.8;">${fmt(fiaVal)}</span>
+        </div>`;
+    });
+
+    document.getElementById('fia-table-body').innerHTML = tableHTML;
+    document.getElementById('fia-table-wrap').style.display = 'block';
+
+    // Summary
+    const spGain  = spVal - amount;
+    const fiaGain = fiaVal - amount;
+    const numYrs  = years.length;
+    document.getElementById('fia-sp-end').textContent  = fmt(spVal);
+    document.getElementById('fia-end').textContent     = fmt(fiaVal);
+    document.getElementById('fia-sp-gain').textContent = (spGain >= 0 ? '+' : '') + fmt(spGain) + ' gain';
+    document.getElementById('fia-gain').textContent    = (fiaGain >= 0 ? '+' : '') + fmt(fiaGain) + ' gain';
+
+    let verdict = '';
+    if(fiaVal >= spVal){
+      verdict = `Over this <strong>${numYrs}-year period</strong>, the Fixed Index Annuity outperformed the S&P 500${fee>0?' (after the '+fee+'% annual fee)':''}. ` +
+        `Starting with <strong>${fmt(amount)}</strong>, the FIA grew to <strong>${fmt(fiaVal)}</strong> vs <strong>${fmt(spVal)}</strong> in the market — ` +
+        `with <strong>zero down years</strong> and full principal protection throughout.`;
+    } else {
+      const diff = spVal - fiaVal;
+      verdict = `Over this <strong>${numYrs}-year period</strong>, the S&P 500${fee>0?' (before the '+fee+'% fee)':''} outperformed the FIA by <strong>${fmt(diff)}</strong>. ` +
+        `However, the FIA achieved <strong>${fmt(fiaVal)}</strong> with <strong>zero negative years</strong> — no sleepless nights, no market crashes, no recovery waiting. ` +
+        `The question is: how much of that difference is worth paying for the peace of mind?`;
+    }
+    document.getElementById('fia-verdict-text').innerHTML = verdict;
+    document.getElementById('fia-summary').style.display = 'block';
+  }
+
+  function fiaReset(){
+    document.getElementById('fia-cap').value    = '';
+    document.getElementById('fia-amount').value = '';
+    document.getElementById('fia-fee').value    = '';
+    document.getElementById('fia-table-wrap').style.display = 'none';
+    document.getElementById('fia-summary').style.display    = 'none';
+  }
+
+
+  // ── Fee Calculator ──
+  function fcGetFees(){
+    return ['fc-advisory','fc-expense','fc-me','fc-admin','fc-death','fc-income-rider','fc-other']
+      .reduce((sum,id)=>sum+(parseFloat(document.getElementById(id).value)||0), 0);
+  }
+
+  function fcCalc(){
+    const value   = parseFloat(document.getElementById('fc-value').value)  || 0;
+    const ret     = parseFloat(document.getElementById('fc-return').value) || 0;
+    const years   = parseFloat(document.getElementById('fc-years').value)  || 0;
+    const totalFee= fcGetFees();
+    const fmt     = n => '$' + Math.round(n).toLocaleString();
+
+    // Always update total fee display
+    document.getElementById('fc-total-fee').textContent = totalFee > 0 ? totalFee.toFixed(2) + '%' : '—';
+
+    // Tier 1: show instant fee stats as soon as value + any fees exist
+    if(value > 0 && totalFee > 0){
+      const annualDollar = value * (totalFee / 100);
+      document.getElementById('fc-annual-dollar').textContent = fmt(annualDollar) + '/yr';
+      const pctLost = ret > 0 ? (totalFee / ret * 100).toFixed(0) + '%' : '—';
+      document.getElementById('fc-pct-lost').textContent = pctLost;
+      if(ret > 0){
+        document.getElementById('fc-gross-pct').textContent = ret.toFixed(2) + '%';
+        document.getElementById('fc-net-pct').textContent   = (ret - totalFee).toFixed(2) + '%';
+      }
+      // Store early so proposed calc can fire even without years
+      window._fcValue    = value;
+      window._fcRet      = ret;
+      window._fcTotalFee = totalFee;
+      window._fcYears    = years;
+      window._fcGrossEnd = (ret > 0 && years > 0) ? value * Math.pow(1 + ret/100, years) : 0;
+      fcProposedCalc();
+    }
+
+    // Tier 2: full compounding results need all three
+    if(value <= 0 || ret <= 0 || years <= 0){ 
+      if(value > 0 && totalFee > 0) document.getElementById('fc-results').style.display = 'block';
+      return; 
+    }
+
+    const netRet  = ret - totalFee;
+    const grossEnd= value * Math.pow(1 + ret/100, years);
+    const netEnd  = value * Math.pow(1 + netRet/100, years);
+    const feeDrag = grossEnd - netEnd;
+
+    document.getElementById('fc-gross-pct').textContent = ret.toFixed(2) + '%';
+    document.getElementById('fc-net-pct').textContent   = netRet.toFixed(2) + '%';
+    document.getElementById('fc-gross-end').textContent = fmt(grossEnd);
+    document.getElementById('fc-net-end').textContent   = fmt(netEnd);
+    document.getElementById('fc-fee-drag').textContent  = fmt(feeDrag);
+    document.getElementById('fc-yrs-label').textContent = years;
+
+    const pctLost = ret > 0 ? (totalFee / ret * 100).toFixed(0) + '%' : '—';
+    document.getElementById('fc-pct-lost').textContent = pctLost;
+
+    const annualDollar = value * (totalFee / 100);
+    document.getElementById('fc-annual-dollar').textContent = fmt(annualDollar) + '/yr';
+
+    const netPct = Math.max(0, netEnd / grossEnd * 100);
+    document.getElementById('fc-bar-net').style.width = netPct + '%';
+
+    document.getElementById('fc-results').style.display = 'block';
+
+    // Store for proposed calc
+    window._fcGrossEnd = grossEnd;
+    window._fcValue    = value;
+    window._fcRet      = ret;
+    window._fcYears    = years;
+    window._fcTotalFee = totalFee;
+
+    fcProposedCalc();
+  }
+
+  function fcProposedCalc(){
+    const proposedFee = parseFloat(document.getElementById('fc-proposed-fee').value) || 0;
+    const res = document.getElementById('fc-proposed-results');
+    if(!window._fcValue || !window._fcTotalFee || proposedFee <= 0){ res.style.display='none'; return; }
+
+    const fmt      = n => '$' + Math.round(n).toLocaleString();
+    const saved    = window._fcTotalFee - proposedFee;
+    const annualSave = window._fcValue * (saved / 100);
+
+    // Always show annual savings
+    let verdictHTML =
+      'By reducing fees from <strong>' + window._fcTotalFee.toFixed(2) + '%</strong> to <strong>' + proposedFee.toFixed(2) + '%</strong>, ' +
+      'they save <strong>' + saved.toFixed(2) + '% per year</strong> — approximately <strong style="color:#81C784;">' + fmt(annualSave) + ' per year</strong> staying in their account.';
+
+    // Add compounding section if we have return + years
+    const ret   = window._fcRet;
+    const years = window._fcYears;
+    if(ret > 0 && years > 0){
+      const netProp  = ret - proposedFee;
+      const propEnd  = window._fcValue * Math.pow(1 + netProp/100, years);
+      const netCurr  = window._fcValue * Math.pow(1 + (ret - window._fcTotalFee)/100, years);
+      const gain     = propEnd - netCurr;
+      const vsGross  = window._fcGrossEnd > 0 ? Math.min(100, propEnd / window._fcGrossEnd * 100) : 80;
+      document.getElementById('fc-proposed-end').textContent = fmt(propEnd);
+      document.getElementById('fc-bar-proposed').style.width = vsGross + '%';
+      verdictHTML += ' Over <strong>' + years + ' years</strong> compounded, that difference grows to an additional <strong style="color:#81C784;font-size:11px;">' + fmt(gain) + '</strong>.';
+    } else {
+      document.getElementById('fc-proposed-end').textContent = '—';
+      document.getElementById('fc-bar-proposed').style.width = '0%';
+    }
+
+    document.getElementById('fc-verdict').innerHTML = verdictHTML;
+    res.style.display = 'block';
+  }
+
+  function fcReset(){
+    ['fc-value','fc-return','fc-years','fc-advisory','fc-expense',
+     'fc-me','fc-admin','fc-death','fc-income-rider','fc-other','fc-proposed-fee'].forEach(id=>{
+      document.getElementById(id).value='';
+    });
+    document.getElementById('fc-total-fee').textContent  = '—';
+    document.getElementById('fc-pct-lost').textContent   = '';
+    document.getElementById('fc-annual-dollar').textContent = '';
+    document.getElementById('fc-results').style.display  = 'none';
+    document.getElementById('fc-proposed-results').style.display = 'none';
+    window._fcGrossEnd = 0; window._fcValue = 0;
+  }
+  // Init FIA when screen loads
+  document.addEventListener('DOMContentLoaded', fiaInit);
+
+  // ── Walls Calculator ──
+  function wcCalc(){
+    const amount  = parseFloat(document.getElementById('wc-amount').value)        || 0;
+    const curRate = parseFloat(document.getElementById('wc-current-rate').value)  || 0;
+    const proRate = parseFloat(document.getElementById('wc-proposed-rate').value) || 0;
+    const fmt     = (n) => '$' + Math.round(n).toLocaleString();
+    const res     = document.getElementById('wc-results');
+
+    if(amount <= 0 || curRate <= 0 || proRate <= 0){
+      res.style.display='none';
+      // Show partial if we have amount + current rate
+      if(amount > 0 && curRate > 0){
+        const curAnn = amount * (Math.pow(1 + curRate/100, 1) - 1);
+        document.getElementById('wc-current-annual').textContent = fmt(curAnn) + '/yr';
+        document.getElementById('wc-bar-current').style.width = '100%';
+      }
+      return;
+    }
+
+    const curAnnual  = amount * (Math.pow(1 + curRate/100, 1) - 1);
+    const proAnnual  = amount * (Math.pow(1 + proRate/100, 1) - 1);
+    const gapAnnual  = proAnnual - curAnnual;
+    const gapMonth   = gapAnnual / 12;
+
+    const cur5  = amount * Math.pow(1 + curRate/100, 5)  - amount;
+    const pro5  = amount * Math.pow(1 + proRate/100, 5)  - amount;
+    const cur10 = amount * Math.pow(1 + curRate/100, 10) - amount;
+    const pro10 = amount * Math.pow(1 + proRate/100, 10) - amount;
+    const gap5  = pro5  - cur5;
+    const gap10 = pro10 - cur10;
+
+    document.getElementById('wc-current-annual').textContent  = fmt(curAnnual) + '/yr';
+    document.getElementById('wc-proposed-annual').textContent = fmt(proAnnual) + '/yr';
+    document.getElementById('wc-gap-annual').textContent      = fmt(gapAnnual) + '/yr';
+    document.getElementById('wc-gap-month').textContent       = fmt(gapMonth);
+    document.getElementById('wc-gap-5yr').textContent         = fmt(gap5);
+    document.getElementById('wc-gap-10yr').textContent        = fmt(gap10);
+
+    const maxVal = Math.max(curAnnual, proAnnual);
+    document.getElementById('wc-bar-current').style.width  = (curAnnual/maxVal*100) + '%';
+    document.getElementById('wc-bar-proposed').style.width = '100%';
+
+    document.getElementById('wc-summary').innerHTML =
+      'On <strong>' + fmt(amount) + '</strong> in fixed income, moving from <strong>' + curRate + '%</strong> to <strong>' + proRate + '%</strong> generates an additional ' +
+      '<strong>' + fmt(gapAnnual) + ' per year</strong> — ' +
+      'that is <strong>' + fmt(gapMonth) + ' per month</strong> they are currently leaving on the table. ' +
+      'Over 10 years compounded, the difference grows to <strong>' + fmt(gap10) + '</strong>.';
+
+    res.style.display = 'block';
+  }
+
+  function wcReset(){
+    ['wc-amount','wc-current-rate','wc-proposed-rate'].forEach(id=>{
+      document.getElementById(id).value='';
+    });
+    document.getElementById('wc-results').style.display='none';
+  }
+</script>
+</body>
+</html>
